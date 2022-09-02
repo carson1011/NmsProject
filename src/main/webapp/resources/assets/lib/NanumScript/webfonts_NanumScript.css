@@ -1,0 +1,13 @@
+@charset "utf-8";
+
+/*
+ * Nanum Pen Script (Korean) http://www.google.com/fonts/earlyaccess
+ * @import url(http://fonts.googleapis.com/earlyaccess/nanumpenscript.css);
+ */
+@font-face {
+	font-family: 'Nanum Pen Script';
+	font-style: normal;
+	font-weight: 400;
+	src: url(NanumScript/NanumPenScript-Regular.eot);
+	src: local("※"),url(NanumScript/NanumPenScript-Regular.eot?#iefix) format('embedded-opentype'),url(NanumScript/NanumPenScript-Regular.woff2) format('woff2'),url(NanumScript/NanumPenScript-Regular.woff) format('woff'),url(NanumScript/NanumPenScript-Regular.ttf) format('truetype');
+}

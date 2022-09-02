@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.DeviceMapper">
+    <select id="getDeviceList" parameterType="java.lang.Integer" resultType="com.example.demo.domain.DeviceVO">
+        select * from tb_dev where iid = #{tree_id}
+    </select>
+    <insert id="addDevice"  parameterType="com.example.demo.domain.DeviceVO">
+        insert into tb_dev(iid,sname) values(#{iid},#{sname})
+    </insert>
+</mapper>

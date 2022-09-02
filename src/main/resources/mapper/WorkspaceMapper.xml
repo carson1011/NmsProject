@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.WorkspaceMapper">
+
+    <select id="getUserList" resultType="com.example.demo.repository.TestDTO">
+        SELECT * FROM c_nms_iot.user;
+    </select>
+
+    <select id="getTreeList" resultType="com.example.demo.domain.TreeVO">
+        select iId as id, ifnull(iParent, '#')as parent, sName as text, sIcon as icon from tb_map
+    </select>
+</mapper>

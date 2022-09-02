@@ -1,0 +1,621 @@
+@charset "utf-8";
+/* 허브팝 사용자 레이아웃 CSS */
+/* A2M KSI 2020-04-20 */
+.no-radius {
+  border-radius: 0;
+}
+.clear {
+  content: '';
+  display: block;
+  width: 100%;
+  clear: both;
+}
+/* 부트스트랩 스타일 재정의 */
+a {
+  color: #333;
+}
+a:hover,
+a:focus,
+a:visited {
+  text-decoration: none;
+}
+/* 공통 */
+ul,
+ol,
+li,
+dl,
+dt,
+dd {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+​ p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  padding: 0;
+}
+​ a {
+  color: inherit;
+  text-decoration: none;
+}
+​ img {
+  border: 0;
+  vertical-align: middle;
+  font-size: 0;
+  max-width: 100%;
+}
+​ table {
+  border-collapse: collapse;
+  width: 100%;
+}
+/* 레이아웃 */
+html {
+  position: relative;
+  width: 100%;
+  min-width: 1440px;
+  height: auto;
+  min-height: 100vh;
+}
+.user-site {
+  display: table;
+  width: 100%;
+  min-height: inherit;
+}
+#pageWrap {
+  display: table-row;
+  position: relative;
+  width: 100%;
+  min-height: inherit;
+}
+#pageWrap::after {
+  content: '';
+  display: block;
+  width: 100%;
+  clear: both;
+}
+/* header */
+#header {
+  width: 260px;
+  background: linear-gradient(to bottom, #2a5197, #1e3c72);
+  position: relative;
+  z-index: 100;
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100vh;
+}
+/* IE */
+@media screen and (min-width:0\0){
+  #header {
+	background:#1e3c72;
+  }	
+}
+#header .header-top h1 {
+  text-shadow: none;
+  margin: 0;
+}
+#header .header-top h1 a {
+  display: block;
+  width: 100%;
+  height: 100px;
+  border-bottom: 1px solid #1b3e7c;
+  background: url('../logo_admin.png') center no-repeat;
+}
+#header .header-mid {
+  position: relative;
+  z-index: 1;
+}
+#header .header-mid .scroll-bar {
+  width: 100%;
+  height: calc(100vh - 200px);
+  position: relative;
+}
+#header .header-mid .scroll-bar .mCSB_inside > .mCSB_container {
+  margin-right: 0;
+}
+#header .header-mid .scroll-bar .mCS-minimal.mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar {
+  background-color: rgba(13, 37, 81, 0.6);
+}
+#header #myService {
+  width: 100%;
+  position: relative;
+  border-bottom: 1px solid #1b3e7c;
+  padding: 15px 0;
+}
+#header #myService .sub-title {
+  padding: 0 20px;
+  color: #9baed0;
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+#header #myService .depth2 > li {
+  position: relative;
+  padding: 8px 19px 7px 20px;
+  min-height: 38px;
+}
+#header #myService .depth2 > li > a.link {
+  display: block;
+  color: #edf0f6;
+  font-size: 13px;
+  width: 100%;
+  position: relative;
+  z-index: 1;
+}
+#header #myService .depth2 > li > a.link .depth-icon-img {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  overflow: hidden;
+  vertical-align: top;
+  margin-top: 2px;
+  margin-right: 7px;
+}
+#header #myService .depth2 > li > a.link span {
+  display: inline-block;
+  vertical-align: top;
+  max-width: 138px;
+}
+#header #myService .depth2 > li .bookmark {
+  display: block;
+  position: absolute;
+  top: 9px;
+  right: 44px;
+  width: 16px;
+  height: 16px;
+  overflow: hidden;
+  background-position: 0 0;
+  background-repeat: no-repeat;
+  opacity: 1;
+  line-height: 15px;
+  visibility: hidden;
+  z-index: 2;
+}
+#header #myService .depth2 > li .bookmark::before {
+  content: '\ea1d';
+  font-family: 'xeicon';
+  font-size: 15px;
+  line-height: 15px;
+  color: #97a4bd;
+}
+#header #myService .depth2 > li .bookmark.active::before {
+  content: '\ea1c';
+}
+#header #myService .depth2 > li:hover {
+  background: #1a386e;
+}
+#header #myService .depth2 > li:hover .bookmark {
+  opacity: 1;
+  visibility: visible;
+}
+#header #myService .depth2 > li.hassub::before {
+  content: '';
+  width: 10px;
+  height: 2px;
+  background: #97a4bd;
+  position: absolute;
+  top: 16px;
+  right: 22px;
+}
+#header #myService .depth2 > li.hassub::after {
+  content: '';
+  width: 2px;
+  height: 10px;
+  background: #97a4bd;
+  position: absolute;
+  top: 12px;
+  right: 26px;
+  display: block;
+}
+#header #myService .depth2 > li.hassub.open a.link {
+  color: #fff;
+}
+#header #myService .depth2 > li.hassub.open .depth-icon-img img {
+  transform: translateY(-16px);
+}
+#header #myService .depth2 > li.hassub.open::after {
+  display: none;
+}
+#header #myService .depth2 > li.hassub.open .depth3-list {
+  display: block;
+  padding-top: 10px;
+}
+#header #myService .depth3-list {
+  width: 200px;
+  -webkit-transition: all 0.2s linear;
+  -o-transition: all 0.2s linear;
+  transition: all 0.2s linear;
+  display: none;
+}
+#header #myService .depth3-list .depth3-item > a {
+  display: block;
+  padding: 7px 13px;
+  font-size: 13px;
+  color: #b1c0dc;
+  -webkit-transition: all 0.2s linear;
+  -o-transition: all 0.2s linear;
+  transition: all 0.2s linear;
+}
+#header #myService .depth3-list .depth3-item > a span {
+  display: inline-block;
+  max-width: 160px;
+  vertical-align: top;
+  position: relative;
+  padding-left: 10px;
+}
+#header #myService .depth3-list .depth3-item > a span::before {
+  content: '';
+  width: 2px;
+  height: 2px;
+  border-radius: 50%;
+  background: #fff;
+  position: absolute;
+  top: 7px;
+  left: 0;
+  opacity: 0;
+  visibility: hidden;
+}
+#header #myService .depth3-list .depth3-item:hover a {
+  color: #fff;
+}
+#header #myService .depth3-list .depth3-item.on .link {
+  color: #fff;
+}
+#header #myService .depth3-list .depth3-item.on span::before {
+  opacity: 1;
+  visibility: visible;
+}
+/*
+#header #gnb {
+  padding-top: 10px;
+}
+*/
+#header #gnb .depth1-list .depth1-item > a {
+  display: block;
+  padding: 13px 15px;
+  position: relative;
+  color: #c6d4ee;
+  font-weight: 600;
+}
+#header #gnb .depth1-list .depth1-item > a span {
+  display: inline-block;
+  vertical-align: top;
+  max-width: 150px;
+  font-size: 13px;
+}
+#header #gnb .depth1-list .depth1-item > a .arr {
+  position: absolute;
+  top: 18px;
+  right: 20px;
+  width: 14px;
+  height: 14px;
+}
+#header #gnb .depth1-list .depth1-item > a .arr::before {
+  content: '';
+  width: 9px;
+  height: 9px;
+  border: 2px solid #9fafcb;
+  border-width: 2px 2px 0 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: rotate(135deg);
+  border-radius: 3px;
+}
+#header #gnb .depth1-list .depth1-item > a.on {
+  color: #fff;
+  background: #19376d;
+}
+#header #gnb .depth1-list .depth1-item > a.on .depth-icon-img img {
+  transform: translateY(0px);
+}
+#header #gnb .depth1-list .depth1-item > a.open .arr::before {
+  transform: rotate(-45deg);
+}
+#header #gnb .depth1-list .depth1-item.active {
+  background: #1d3c75;
+}
+#header #gnb .depth1-list .depth1-item.active > a .depth-icon-img img {
+  transform: translateY(0px);
+}
+#header #gnb .depth1-list .depth1-item.active .arr::before {
+  top: 4px;
+  transform: rotate(-45deg);
+  border-color: #fff;
+}
+#header #gnb .depth1-list .depth1-item.active .depth2-list {
+  display: block;
+  padding-top:5px;
+  padding-bottom:5px;
+}
+#header #gnb .depth1-list .depth2-list {
+  display: none;
+}
+#header #gnb .depth1-list .depth2-list .depth2-item {
+  padding: 8px 19px 8px 35px;
+  position: relative;
+  -webkit-transition: all 0.2s linear;
+  -o-transition: all 0.2s linear;
+  transition: all 0.2s linear;
+}
+#header #gnb .depth1-list .depth2-list .depth2-item > .link {
+  display: block;
+  font-size: 13px;
+  color: #9baed0;
+  text-decoration: none;
+  width: 100%;
+  position: relative;
+  z-index: 1;
+}
+#header #gnb .depth1-list .depth2-list .depth2-item > .link:hover {
+  color: #fff;
+}
+#header #gnb .depth1-list .depth2-list .depth2-item > .link span {
+  display: inline-block;
+  vertical-align: top;
+  max-width: 130px;
+}
+#header #gnb .depth1-list .depth2-list .depth2-item .bookmark {
+  display: block;
+  position: absolute;
+  top: 9px;
+  right: 44px;
+  width: 16px;
+  height: 16px;
+  overflow: hidden;
+  background-position: 0 0;
+  background-repeat: no-repeat;
+  opacity: 1;
+  line-height: 15px;
+  visibility: hidden;
+  z-index: 2;
+}
+#header #gnb .depth1-list .depth2-list .depth2-item .bookmark::before {
+  content: '\ea1d';
+  font-family: 'xeicon';
+  font-size: 15px;
+  line-height: 15px;
+  color: #97a4bd;
+}
+#header #gnb .depth1-list .depth2-list .depth2-item .bookmark.active::before {
+  content: '\ea1c';
+}
+#header #gnb .depth1-list .depth2-list .depth2-item.on .link {
+  color: #fff;
+}
+#header #gnb .depth1-list .depth2-list .depth2-item:hover {
+  background: #1a386e;
+}
+#header #gnb .depth1-list .depth2-list .depth2-item:hover .bookmark {
+  opacity: 1;
+  visibility: visible;
+}
+#header #gnb .depth1-list .depth2-list .depth2-item.hassub::before {
+  content: '';
+  width: 10px;
+  height: 2px;
+  background: #97a4bd;
+  position: absolute;
+  top: 16px;
+  right: 22px;
+}
+#header #gnb .depth1-list .depth2-list .depth2-item.hassub::after {
+  content: '';
+  width: 2px;
+  height: 10px;
+  background: #97a4bd;
+  position: absolute;
+  top: 12px;
+  right: 26px;
+  display: block;
+}
+#header #gnb .depth1-list .depth2-list .depth2-item.hassub.open::after {
+  display: none;
+}
+#header #gnb .depth1-list .depth2-list .depth2-item.hassub.open > a {
+  color: #fff;
+}
+#header #gnb .depth1-list .depth2-list .depth2-item.hassub.open > a .depth-icon-img img {
+  transform: translateY(0px);
+}
+#header #gnb .depth1-list .depth2-list .depth2-item.hassub.open .depth3-list {
+  display: block;
+  padding-top: 10px;
+}
+#header #gnb .depth1-list .depth-icon-img {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  overflow: hidden;
+  vertical-align: top;
+  margin-top: 2px;
+  margin-right: 7px;
+}
+#header #gnb .depth1-list .depth-icon-img img {
+  transform: translateY(-16px);
+}
+#header #gnb .depth1-list .depth3-list {
+  width: 200px;
+  -webkit-transition: all 0.2s linear;
+  -o-transition: all 0.2s linear;
+  transition: all 0.2s linear;
+  display: none;
+}
+#header #gnb .depth1-list .depth3-list .depth3-item > a {
+  display: block;
+  padding: 7px 13px;
+  font-size: 13px;
+  color: #b1c0dc;
+  -webkit-transition: all 0.2s linear;
+  -o-transition: all 0.2s linear;
+  transition: all 0.2s linear;
+}
+#header #gnb .depth1-list .depth3-list .depth3-item > a span {
+  display: inline-block;
+  max-width: 160px;
+  vertical-align: top;
+  position: relative;
+  padding-left: 10px;
+}
+#header #gnb .depth1-list .depth3-list .depth3-item > a span::before {
+  content: '';
+  width: 2px;
+  height: 2px;
+  border-radius: 50%;
+  background: #fff;
+  position: absolute;
+  top: 9px;
+  left: 0;
+  opacity: 0;
+  visibility: hidden;
+}
+#header #gnb .depth1-list .depth3-list .depth3-item:hover a {
+  color: #fff;
+}
+#header #gnb .depth1-list .depth3-list .depth3-item.on span {
+  color: #fff;
+}
+#header #gnb .depth1-list .depth3-list .depth3-item.on span::before {
+  opacity: 1;
+  visibility: visible;
+}
+#header .header-bottom {
+  margin-top: 25px;
+  margin-bottom: 17px;
+  position: relative;
+  z-index: 2;
+}
+#header .header-bottom .user-btn {
+  display: block;
+  position: relative;
+  margin: 0 auto;
+  background: #102954;
+  width: 210px;
+  height: 35px;
+  color: #fff;
+  text-align: left;
+  padding: 6px 13px;
+  border-radius: 30px;
+}
+#header .header-bottom .user-btn span {
+  display: inline-block;
+  padding-left: 19px;
+  position: relative;
+  font-size: 12px;
+  background: url('../user_btn_name.png') left center no-repeat;
+}
+#header .header-bottom .user-btn .etc {
+  display: block;
+  width: 19px;
+  height: 35px;
+  position: absolute;
+  top: 0;
+  right: 13px;
+  background: url('../user_btn_etc.png') center no-repeat;
+}
+#header .header-bottom .user-popup {
+  position: absolute;
+  top: -90px;
+  left: 0;
+  width: 100%;
+  opacity: 0;
+  visibility: hidden;
+  z-index: -1;
+  -webkit-transition: all 0.2s linear;
+  -o-transition: all 0.2s linear;
+  transition: all 0.2s linear;
+}
+#header .header-bottom .user-popup .inner {
+  background: #fff;
+  border-radius: 10px;
+  width: 190px;
+  margin: 0 auto;
+  overflow: hidden;
+}
+#header .header-bottom .user-popup .inner ul {
+  font-size: 13px;
+}
+#header .header-bottom .user-popup .inner ul > li {
+  border-bottom: 1px solid #eee;
+}
+#header .header-bottom .user-popup .inner ul > li:last-child {
+  border-bottom: 0;
+}
+#header .header-bottom .user-popup .inner ul > li a {
+  display: block;
+  padding: 10px 20px;
+  font-size: 12px;
+}
+#header .header-bottom .user-popup .inner ul > li a i {
+  margin-right: 5px;
+}
+#header .header-bottom.active .user-popup {
+  opacity: 1;
+  visibility: visible;
+  z-index: 1;
+}
+/* 콘텐츠 */
+#container {
+  position: relative;
+  width: calc(100% - 260px);
+  height: 100%;
+  margin-left: 260px;
+}
+#contentWrap {
+  background: #f8f8f9;
+}
+#contentWrap.after {
+  content: '';
+  display: block;
+  width: 100%;
+  clear: both;
+}
+#contentWrap .page-title #spot {
+  padding: 20px 30px;
+  position: relative;
+}
+#contentWrap .page-title #spot .page-info {
+  color: #393939;
+  font-size: 20px;
+  font-weight: 500;
+  margin-bottom: 5px;
+  font-family: "Noto Sans KR";
+}
+#contentWrap .page-title #spot .btn-refresh {
+  display: block;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  position: absolute;
+  top: 32px;
+  right: 35px;
+  background: #fff;
+  z-index: 1;
+}
+#contentWrap .page-title #spot .btn-refresh i {
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 25px;
+  -webkit-transition: all 0.2s linear;
+  -o-transition: all 0.2s linear;
+  transition: all 0.2s linear;
+  font-size: 20px;
+}
+#contentWrap .page-title #spot .btn-refresh:hover i {
+  transform: translate(-50%, -50%) rotate(180deg);
+}
+#contentWrap .page-content {
+  min-height: 90vh;
+}
+#contentWrap .page-content .inner-wrap {
+  padding: 0 30px 40px;
+}

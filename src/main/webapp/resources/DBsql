@@ -1,0 +1,362 @@
+/*DB c_plat_iot*/
+USE c_plat_iot;
+
+/*부서테이블*/
+DROP TABLE IF EXISTS tb_dept;
+CREATE TABLE tb_dept(
+  iDeptno int(10) NOT NULL AUTO_INCREMENT,
+  sDeptname varchar(20) NOT NULL,
+  PRIMARY KEY(iDeptno),
+  UNIQUE(sDeptname)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/********************************************************* tb_dept DEFAULT VALUES **********************************************************/
+INSERT INTO tb_dept (iDeptno,sDeptname)VALUES(0,'시스템관리');
+/*******************************************************************************************************************************************/
+
+/*유저테이블*/
+DROP TABLE IF EXISTS tb_users;
+CREATE TABLE tb_users(
+  iId int(10) NOT NULL AUTO_INCREMENT,
+  sEmpno varchar(15) NOT NULL, 
+  sName varchar(30) NULL,
+  sPwd varchar(255) NULL,
+  sAddress varchar(30) NULL,
+  iDeptno int(10) NULL,
+  sTel varchar(20) NULL,
+  sCoTel varchar(20) NULL,
+  sEmail varchar(100) NULL,
+  stEmail_verified_at timestamp NULL DEFAULT NULL,
+  sAuth varchar(15) NOT NULL DEFAULT 'ROLE_MEN',
+  sRemember_token varchar(100) NULL DEFAULT NULL,
+  stCreated_at timestamp NULL,
+  stUpdated_at timestamp NULL,
+  stLast_login timestamp NULL,
+  sConfirm_code varchar(100) NULL DEFAULT NULL,
+  iFail_cnt tinyint(2) NOT NULL DEFAULT 0,
+  boEnabled tinyint(1) NOT NULL DEFAULT 1,
+  sAuthMap varchar(5000) DEFAULT '[]',
+  sHighAuthMap varchar(5000) DEFAULT '[]',
+  iReq tinyint(1) DEFAULT 0,
+  PRIMARY KEY (iId),
+  UNIQUE (sEmpno,sEmail),
+  FOREIGN KEY (iDeptno) REFERENCES tb_dept(iDeptno)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/********************************************************* tb_users DEFAULT VALUES **********************************************************/
+INSERT INTO tb_users(iId,sEmpno,sName,sAuth,iDeptno,boEnabled)VALUES(0,'5530','admin','ROLE_ADM',1,1);
+/********************************************************************************************************************************************/          
+
+/*MAP 테이블*/
+DROP TABLE IF EXISTS tb_map;
+CREATE TABLE tb_map(
+    iId int NOT NULL AUTO_INCREMENT,
+    iParent int NOT NULL DEFAULT '0',
+    sName varchar(255) NOT NULL,
+    sIcon varchar(255) DEFAULT 'jstree-folder',
+    sDesc varchar(1000) DEFAULT "",
+    stDateTime datetime DEFAULT now(),
+    boCr tinyint(1) DEFAULT 0,
+    boMj tinyint(1) DEFAULT 0,
+    boMn tinyint(1) DEFAULT 0,
+    boWr tinyint(1) DEFAULT 0,
+    iIn int DEFAULT 0,
+    iOut int DEFAULT 0,
+    iOcc int DEFAULT 0,
+    boSensor tinyint(1) DEFAULT 0;
+    iMaster int DEFAULT 0;
+    boSensorCr tinyint(1) DEFAULT 0,
+    boSensorMj tinyint(1) DEFAULT 0,
+    boSensorMn tinyint(1) DEFAULT 0,
+    boSensorWr tinyint(1) DEFAULT 0,
+    sFloor varchar(10) DEFAULT '1F',
+    is_close int DEFAULT 0,
+    PRIMARY KEY (iId)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/********************************************************* tb_map DEFAULT VALUES **********************************************************/
+INSERT INTO tb_map (iId,iParent,sName)VALUES(0,0,'MAP');
+/******************************************************************************************************************************************/
+
+/*WORK 테이블*/
+DROP TABLE IF EXISTS tb_work ;
+CREATE TABLE tb_work( 
+    iId int NOT NULL,
+    boDateOn tinyint(1) DEFAULT 0,
+    stStartDateTime datetime DEFAULT now(),
+    stEndDateTime datetime DEFAULT now(),
+    iCountDownStat int(1) DEFAULT 0,
+    sCountDownTime varchar(10) DEFAULT "00:00",
+    stCountDownDate datetime DEFAULT now(),
+    iEntryDis tinyint(1) DEFAULT 0,
+    iWorkDis tinyint(1) DEFAULT 0,
+    FOREIGN KEY(iId) REFERENCES tb_map (iId)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/********************************************************* tb_work DEFAULT VALUES **********************************************************/
+INSERT INTO tb_work (iId)VALUES(1);
+/*******************************************************************************************************************************************/
+
+/*tree 테이블*/
+DROP TABLE IF EXISTS tb_tree;
+CREATE TABLE tb_tree( 
+    id int NOT NULL AUTO_INCREMENt,
+    parent varchar(11) NOT NULL DEFAULT "#",
+    text varchar(255) DEFAULT "",
+    icon varchar(255) DEFAULT 'jstree-folder',
+    PRIMARY KEY(id)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/********************************************************* tb_tree DEFAULT VALUES **********************************************************/
+INSERT INTO tb_tree (id,parent,text)VALUES(0,'#','MAP');
+/********************************************************************************************************************************************/
+
+/*디바이스 테이블*/
+DROP TABLE tb_dev;
+CREATE TABLE tb_dev(
+    sDevId varchar(255) NOT NULL,
+    sName varchar(255) NOT NULL,
+    iId int NOT NULL,
+    boLogin tinyint(1) DEFAULT 0,
+    iIn int DEFAULT 0,
+    iOut int DEFAULT 0,
+    iOcc int DEFAULT 0,
+    stConDateTime datetime DEFAULT 0,
+    stDisConDateTime datetime DEFAULT 0,
+    sDesc varchar(1000) DEFAULT "",
+    stDateTime datetime DEFAULT now(),
+    boCr tinyint(1) DEFAULT 0,
+    boMj tinyint(1) DEFAULT 0,
+    boMn tinyint(1) DEFAULT 0,
+    boWr tinyint(1) DEFAULT 0,
+    sFix varchar(10) DEFAULT'고정형',
+    sEnv varchar(255) DEFAULT 'NOR',
+    sIp varchar(20) DEFAULT '',
+    sDevDateTime datetime DEFAULT now(),
+    sDevVer varchar(80) DEFAULT "00.00.00",
+    sAiDateTime datetime DEFAULT now(),
+    sAiVer varchar(80) DEFAULT "00.00.00",
+    sAiModulDateTime datetime DEFAULT now(),
+    sAiModulVer varchar(80) DEFAULT "00.00.00",
+    sJetsonDateTime datetime DEFAULT now(),
+    sJetsonVer varchar(80) DEFAULT "00.00.00",
+    boBeep tinyint(1) NOT NULL DEFAULT 1,
+    sRtDateTime datetime DEFAULT now(),
+    sRtVer varchar(80) DEFAULT "00.00.00",
+    boDir tinyint(1) NOT NULL DEFAULT 0,
+    iMaster int DEFAULT 0,
+    sPolygon varchar(255) DEFAULT NULL,
+    PRIMARY KEY(sDevId),
+    FOREIGN KEY(iId) REFERENCES tb_map(iId)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*RT 테이블*/      
+DROP TABLE IF EXISTS tb_rt;
+CREATE TABLE tb_rt(
+    iRtId int NOT NULL AUTO_INCREMENT,
+    sName varchar(255) NOT NULL,
+    iId int NOT NULL,
+    sDevId varchar(255) NOT NULL,
+    stConDateTime datetime DEFAULT 0,
+    stDisConDateTime datetime DEFAULT 0,
+    sDesc varchar(1000) DEFAULT "",
+    sVerDateTime datetime DEFAULT now(),
+    sVer varchar(80) DEFAULT "00.00.00",
+    PRIMARY KEY(iRtId),
+    FOREIGN KEY(sDevId) REFERENCES tb_dev(sDevId)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*환경센서 테이블 */
+DROP TABLE IF EXISTS tb_sensor;
+CREATE TABLE tb_sensor(
+    iId int NOT NULL AUTO_INCREMENT,
+    iRtId int NOT NULL,
+    iTypeId int NOT NULL,
+    sVal varchar(80) DEFAULT "",
+    iSev int DEFAULT 0,
+    stDateTime datetime DEFAULT 0,
+    stConDateTime datetime DEFAULT 0,
+    stDisConDateTime datetime DEFAULT 0,
+    sDesc varchar(1000) DEFAULT "",
+    iUse tinyint(1) DEFAULT 1,
+    sSafeRange varchar(100) DEFAULT "",
+    sWarnRange varchar(100) DEFAULT "",
+    sDangerRange varchar(100) DEFAULT "",
+    PRIMARY KEY(iId),
+    FOREIGN KEY(iRtId) REFERENCES tb_rt(iRtId),
+    FOREIGN KEY(iTypeId) REFERENCES tb_sensor_type(iTypeId)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+
+/*환경센서 타입 테이블*/
+DROP TABLE IF EXISTS tb_sensor_type;
+CREATE TABLE tb_sensor_type(
+    iTypeId int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    sModel varchar(1000) DEFAULT "",
+    sDesc varchar(1000) DEFAULT "",
+    sUnit varchar(5) DEFAULT "%",
+    sSafeStandard varchar(100) DEFAULT "",
+    sWarnStandard varchar(100) DEFAULT "",
+    sDangerStandard varchar(100) DEFAULT ""
+)ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/********************************************************* tb_sensor_type DEFAULT VALUES **********************************************************/
+INSERT INTO tb_sensor_type (iTypeId,sModel,sDesc,sUnit,sSafeStandard,sWarnStandard,sDangerStandard)VALUES(1,"ME2-O2","산소측정센서","%","18~23.5","17~18","0~17");
+INSERT INTO tb_sensor_type (iTypeId,sModel,sDesc,sUnit,sSafeStandard,sWarnStandard,sDangerStandard)VALUES(2,"ME3-CO","일산화탄소측정센서","ppm","0~5","5~30","30~2000");
+INSERT INTO tb_sensor_type (iTypeId,sModel,sDesc,sUnit,sSafeStandard,sWarnStandard,sDangerStandard)VALUES(3,"ME3-H2S","황화수소측정센서","ppm","0~10","10~200","200~1000");
+INSERT INTO tb_sensor_type (iTypeId,sModel,sDesc,sUnit,sSafeStandard,sWarnStandard,sDangerStandard)VALUES(4,"MD62","이산화탄소측정센서","%","0~1.5","1.5~4","4~100");
+/**************************************************************************************************************************************************/       
+
+/*로그인 history 테이블*/
+DROP TABLE IF EXISTS tb_login_his;
+CREATE TABLE tb_login_his(
+    iId bigint NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    sEmpno varchar(15) NOT NULL,
+    iStat varchar(6),
+    stDateTime datetime DEFAULT now()
+)ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*이벤트 history 테이블*/
+DROP TABLE IF EXISTS tb_event_his;
+CREATE TABLE tb_event_his(
+    iId bigint NOT NULL AUTO_INCREMENT primary key,
+    sDevId varchar(255) not null,
+    iSensorId int default -1,
+    sItem varchar(255) not null,
+    sEvent varchar(255) not null,
+    sTid varchar(255) not null,
+    iSev int default 0,
+    iActRel int default 4,
+    stDateTime datetime default now(),
+    sFile varchar(255) default "",
+    sSid varchar(255) not null default "",
+    iMapId int not null,
+    iRtId int default -1,
+    abImage mediumblob default null
+)ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*이벤트 cur*/
+DROP TABLE IF EXISTS tb_event_cur;
+CREATE TABLE tb_event_cur(
+    iId bigint NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    sDevId varchar(255) not null default '',
+    iSensorId int default -1,
+    sItem varchar(255) not null,
+    sEvent varchar(255) not null,
+    sTid varchar(255) not null,
+    iSev int default 0,
+    iActRel int default 4,
+    stDateTime datetime default now(),
+    sFile varchar(255) default '',
+    iMapid  int not null,
+    iRtid int default -1
+)ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*센서 history 테이블*/
+DROP TABLE IF EXISTS tb_sensor_his;
+CREATE TABLE tb_sensor_his(
+    iId bigint NOT NULL AUTO_INCREMENT,
+    sDevId varchar(255) NOT NULL,
+    iLid int NOT NULL,
+    iTypeId int NOT NULL,
+    sVal varchar(80) DEFAULT "",
+    iSev int DEFAULT 0,
+    stDateTime datetime NOT null default now(),
+    PRIMARY KEY(iId),
+    FOREIGN KEY(iTypeId) REFERENCES tb_sensor_type(iTypeId)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*env table*/
+DROP TABLE IF EXISTS tb_env;
+CREATE TABLE tb_env(
+    iMode int default 0, 
+    sMySqlAddr varchar(255) default "localhost", 
+    sMsSqlAddr varchar(255) default "localhost", 
+    sWebAddr varchar(255) default "localhost", 
+    sMiddleAddr varchar(255) default "localhost", 
+    sInterfaceAddr varchar(255) default "localhost", 
+    stDateTime datetime default now(),
+    boNtp tinyint(1) default 0,
+    boSnd tinyint(1) default 1,
+    sAiDir varchar(255) not null,
+    sFileDir varchar(255) not null,
+    sResetTime varchar(10) default '1',
+    boWebPrn tinyint(1) default 1,
+    boSystemRxPrn tinyint(1) DEFAULT 1,
+    boSystemTxPrn tinyint(1) DEFAULT 1,
+    sPloyGon varchar(255) default null,
+    iRt int default 0,
+    iDir int default 0,
+    sAiModule varchar(255) default null,
+    sAiProg varchar(255) default null,
+    sJetsonProg varchar(255) default null,
+    iFlag int default 0
+)ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*env table*/
+DROP TABLE IF EXISTS tb_web_to_middle;
+CREATE TABLE tb_web_to_middle(
+    iId bigint NOT NULL AUTO_INCREMENT, 
+    sMsg varchar(255) NOT NULL, 
+    iIs int DEFAULT 0,
+    PRIMARY KEY(iId)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+
+/*커맨드 기록*/
+DROP TABLE IF EXISTS tb_command_his;
+CREATE TABLE tb_command_his(
+    iId bigint NOT NULL AUTO_INCREMENT,
+    iTypeId int NOT NULL,
+    sCommand varchar(1000) DEFAULT "",
+    iSeq int NOT NULL,
+    stDateTime datetime DEFAULT now(),
+    PRIMARY KEY(iId)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*현재 커맨드 기록*/
+DROP TABLE IF EXISTS to_cur_command_his;
+CREATE TABLE tb_cur_command_his(
+    iId bigint NOT NULL AUTO_INCREMENT,
+    iTypeId int NOT NULL,
+    sCommand varchar(80) DEFAULT "",
+    iSeq int NOT NULL,
+    stDateTime datetime DEFAULT now(),
+    PRIMARY KEY(iId)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*group_table*/
+DROP TABLE IF EXISTS group_table;
+CREATE TABLE group_table(
+  apcgroup CHARACTER VARYING(20) NOT NULL,
+  inid integer NOT NULL,
+  CONSTRAINT group_table_pkey PRIMARY KEY (inid),
+  CONSTRAINT constraintname UNIQUE (apcgroup)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*human_cnt_tb*/
+DROP TABLE IF EXISTS human_cnt_tb;
+CREATE TABLE human_cnt_tb(
+  sub_name character varying(50),
+  apcgroup character varying(20),
+  inid integer NOT NULL,
+  enter_cnt integer NOT NULL DEFAULT 0,
+  exit_cnt integer NOT NULL DEFAULT 0,
+  cur_cnt integer NOT NULL DEFAULT 0,
+  is_close integer NOT NULL DEFAULT 0,
+  CONSTRAINT human_cnt_tb_pkey PRIMARY KEY (inid),
+  CONSTRAINT human_cnt_tb_apcgroup_fkey FOREIGN KEY (apcgroup) REFERENCES group_table (apcgroup) MATCH SIMPLE ON UPDATE CASCADE ON DELETE CASCADE,
+  CONSTRAINT human_cnt_tb_inid_fkey FOREIGN KEY (inid) REFERENCES group_table (inid) MATCH SIMPLE ON UPDATE CASCADE ON DELETE CASCADE   
+)ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*auto_increment 초기화*/
+/*ALTER TABLE tb_users AUTO_INCREMENT=1;
+SET @COUNT = 0;
+UPDATE tb_users SET iId = @COUNT:=@COUNT+1;
+
+ALTER TABLE tb_tree AUTO_INCREMENT=1;
+SET @COUNT = 0;
+UPDATE tb_tree SET id = @COUNT:=@COUNT+1;
+
+ALTER TABLE tb_map AUTO_INCREMENT=1;
+SET @COUNT = 0;
+UPDATE tb_map SET iId = @COUNT:=@COUNT+1;
+
+
+ALTER TABLE tb_sensor AUTO_INCREMENT=1;
+SET @COUNT = 0;
+UPDATE tb_sensor SET iSensorId = @COUNT:=@COUNT+1;*/
