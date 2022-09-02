@@ -4,12 +4,13 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 
-    <div class="card-heading bg-gray-200">
-        <div class="row m-1">
-            <div class="col-md-4 my-1">
-                <h5 class="panel-title my-2">Section</h5>
+<div class="col m-1">
+    <div class="card shadow mb-4">
+        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+            <div class="col-4">
+                <h5 class="m-0 font-weight-bold text-dark">Section</h5>
             </div>
-            <div class="col-md-8 text-right panel-heading-right my-2">
+            <div class="col-8 text-right">
                 <button id="openallnode" class="btn btn-sm bg-gray-400">
                     <i class="fas fa-fw fa-arrow-down"></i>
                 </button>
@@ -18,15 +19,15 @@
                 </button>
             </div>
         </div>
-    </div>
-
-    <div class="card-body bg-gray-200">
-        <div class="scroll-content" style="height: 515px">
-            <div id="treeview"></div>
+        <div class="card-body">
+            <div class="scroll-content" style="height: 515px">
+                <div id="treeview"></div>
+            </div>
+            <button id="test_btn" onclick="nms_paneldev()"/>
         </div>
-        <button id="test_btn" onclick="nms_paneldev()"/>
     </div>
 
+</div>
 
 
 <script>

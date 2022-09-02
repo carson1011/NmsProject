@@ -10,7 +10,7 @@
 
     <div class="left-bar">
         <!-- Sidebar -->
-        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+        <ul class="navbar-nav bg-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href>
@@ -25,7 +25,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="index.html">
+                <a class="nav-link" href="/nms/home">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
 
@@ -65,10 +65,10 @@
                 <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
                      data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Custom Utilities:</h6>
-                        <a class="collapse-item" href="utilities-color.html">Colors</a>
-                        <a class="collapse-item" href="utilities-border.html">Borders</a>
-                        <a class="collapse-item" href="utilities-animation.html">Animations</a>
+                        <h6 class="collapse-header">Setting Utilities:</h6>
+                        <a class="collapse-item" href="utilities-color.html">Device</a>
+                        <a class="collapse-item" href="utilities-border.html">Area</a>
+                        <a class="collapse-item" href="utilities-animation.html">Group</a>
                         <a class="collapse-item" href="utilities-other.html">Other</a>
                     </div>
                 </div>
@@ -135,10 +135,9 @@
 
         <!-- Main Content -->
         <div id="content">
-
             <!-- Topbar -->
-            <div class="page-title dashboard-top m">
-                <nav class="navbar navbar-expand navbar-light bg-white topbar static-top shadow">
+            <div class="page-title dashboard-top">
+                <nav class="navbar navbar-expand navbar-light bg-white topbar static-top shadow" style="height: 100px">
                     <div class="panel panel-bordered">
                         <div class="panel-heading">
                             <h2 style="color:gray; font-size: 20px; font-weight:700; margin-top: 5px; ">
@@ -391,32 +390,91 @@
             <div class="page-content">
                 <!-- Begin Page Content -->
                 <div class="inner-wrap">
-                    <div class="row m-md-2">
-                        <div class="col-md-3">
+                    <div class="row">
+                        <div class="col-3">
                             <jsp:include page="../common/20_tree.jsp"></jsp:include>
                         </div>
-                        <div class="col-md-9">
-                            <div class="row-cols-1">
-                                <div class="card-header m-1 bg-gray-200">
-                                    <label class="my-3" style="margin-left: 30px"> 인원 현황</label>
-                                    </div>
-                            </div>
-
-                            <div class="card-body m-1 bg-gray-200">
-                                <div class="row-cols-lg-1">
-                                    <div class="col-md-6">
-                                        <div class="row-cols-2">
-                                            <label style="margin-left: 30px; font-size: 13px "> 전체 인원 </label>
-                                        </div>
-                                        <div>
-                                            <input id="totalCnt" type="text"
-                                                   class="form-control form-control-sm" value=""
-                                                   style="font-weight:800; margin-left: 20px; margin-bottom: 20px;"
-                                                   readonly="">
-                                        </div>
+                        <div class="col-9">
+                            <div class="row">
+                                <div class="col-12 card shadow mb-4 m-1 " >
+                                    <div style= "margin-left: 20px; margin-top:15px;
+                                    margin-bottom: 10px">
+                                        <label style="font-weight: bold; font-size: 22px; margin-top: 7px;"> 인원 현황</label>
                                     </div>
                                 </div>
                             </div>
+                            <div class="row">
+                                <div class="col-xl-4 col-md-6 mb-4">
+                                    <div class="card border-left-primary shadow h-100 py-2">
+                                        <div class="card-body">
+                                            <div class="row no-gutters align-items-center">
+                                                <div class="col mr-2">
+                                                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                                        Total Member </div>
+                                                    <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                        <input id="Total_Cnt" type="text" class="form-control bg-white border-0 small"
+                                                        placeholder="0" readonly="">
+                                                    </div>
+                                                </div>
+                                                <div class="col">
+                                                    <div class="progress progress-sm mr-2">
+                                                        <div id="Total_cnt_bar" class="progress-bar bg-primary" role="progressbar"
+                                                             style="width: 70%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-auto">
+                                                    <i class="fas fa-person-booth fa-2x text-gray-300"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-md-6 mb-4">
+                                    <div class="card border-left-success shadow h-100 py-2">
+                                        <div class="card-body">
+                                            <div class="row no-gutters align-items-center">
+                                                <div class="col mr-2">
+                                                    <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                                        In Count</div>
+                                                    <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                        <input id="Total_In_Cnt" type="text" class="form-control bg-white border-0 small"
+                                                               placeholder="0" readonly="">
+                                                    </div>
+                                                </div>
+                                                <div class="col-auto">
+                                                    <i class="fas fa-door-open fa-2x text-gray-300"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-md-6 mb-4">
+                                    <div class="card border-left-info shadow h-100 py-2">
+                                        <div class="card-body">
+                                            <div class="row no-gutters align-items-center">
+                                                <div class="col mr-2">
+                                                    <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                                    Out Count </div>
+                                                    <div class="row no-gutters align-items-center">
+                                                        <div class="col-auto">
+                                                            <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">
+                                                                <input id="Total_Out_Cnt" type="text" class="form-control bg-white border-0 small"
+                                                                       placeholder="0" readonly="">
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                                <div class="col-auto">
+                                                    <i class="fas fa-door-closed fa-2x text-gray-300"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
                             <div class="card-footer m-1 bg-gray-200">
 
                             </div>
