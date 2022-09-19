@@ -28,7 +28,7 @@
     <script src="/resources/assets/lib/feather/feather.min.js"></script>
 
     <!-- Custom styles for this template-->
-    <link href="/webapp/resources/css/sb-admin-2.css" rel="stylesheet">
+    <link href="../resources/css/sb-admin-2.css" rel="stylesheet">
 
     <!-- 라이브러리 -->
     <!-- bootstrap-treeview -->

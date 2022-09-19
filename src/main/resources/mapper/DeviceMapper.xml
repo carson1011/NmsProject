@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.DeviceMapper">
+    <select id="getDeviceList" parameterType="java.lang.Integer" resultType="com.example.demo.domain.DeviceVO">
+        select * from tb_apc_dev where iid = #{tree_id};
+    </select>
+
+    <select id="getDev_Table" resultType="com.example.demo.domain.DeviceVO">
+        select t1.mac,t1.module_note, t1.sIP, t2.sName
+        from tb_apc_dev t1, tb_map t2
+        where t1.iid = t2.iid
+            limit #{startList}, #{listSize};
+    </select>
+    <select id="getDev_Count" resultType="int">
+        select Count(*) as DevCnt
+        from tb_apc_dev;
+    </select>
+
+    <select id="getDev" resultType="com.example.demo.domain.DeviceVO">
+        select t1.mac,t1.module_note, t1.sIP, t2.sName
+        from tb_apc_dev t1, tb_map t2
+        where t1.iid = t2.iid;
+    </select>
+    <!--select t1.mac, t2.apcgroup, t1.stempture, concat(t1.measure_date,' ',t1.measure_time) as timedate, t1.Img from apc_table t1, group_table t2 " +
+    "where t1.measure_date between '{0}' and '{1}' " +
+    "and t1.stempture > '{2}' and t1.stempture < '{3}' " +
+    "and t1.inid = t2.inid and file_name is not null;", start_date, end_date, gfThAlarmLowTempture, gfThAlarmHighTempture);-->
+
+
+    <insert id="addDevice"  parameterType="com.example.demo.domain.DeviceVO">
+        insert into tb_apc_dev(mac,module_note,isid,iid) values(#{mac},#{module_note},#{isid},#{iid});
+    </insert>
+
+    <update id="modifyDevice" parameterType="com.example.demo.domain.DeviceVO">
+        update tb_apc_dev set module_note = #{module_note}, iid = #{iid} where mac = #{mac};
+    </update>
+
+    <delete id="removeDevice" parameterType="com.example.demo.domain.DeviceVO">
+        DELETE from tb_apc_dev where mac = #{mac};
+    </delete>
+
+    <select id="getMap_dvArea" resultType="com.example.demo.domain.MapVO">
+        select iId as id, ifnull(iParent, '#')as parent, sName as text, sIcon as icon
+        from tb_map
+        where iparent != '#';
+    </select>
+
+
+</mapper>
