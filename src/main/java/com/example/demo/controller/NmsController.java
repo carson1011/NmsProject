@@ -23,8 +23,6 @@ public class NmsController {
 
     private final MapService mapService;
 
-
-
     @GetMapping(value = "/home")
     public String home(Model model){
         Log.info("home");
