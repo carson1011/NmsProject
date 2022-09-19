@@ -22,7 +22,6 @@ public class NmsController {
     private static Logger Log = LoggerFactory.getLogger(NmsController.class);
 
     private final MapService mapService;
-
     @GetMapping(value = "/home")
     public String home(Model model){
         Log.info("home");
