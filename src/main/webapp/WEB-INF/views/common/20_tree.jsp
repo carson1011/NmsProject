@@ -2,31 +2,28 @@
          pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-
-
-<div class="col m-1">
-    <div class="card shadow mb-4">
-        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-            <div class="col-4">
-                <h5 class="m-0 font-weight-bold text-dark">Section</h5>
-            </div>
-            <div class="col-8 text-right">
-                <button id="openallnode" class="btn btn-sm bg-gray-400">
-                    <i class="fas fa-fw fa-arrow-down"></i>
-                </button>
-                <button id="closeallnode" class="btn btn-sm bg-gray-400">
-                    <i class="fas fa-fw fa-arrow-up"></i>
-                </button>
-            </div>
+<script src="/resources/jstree/jstree.js"></script>
+<script src="/resources/jstree/jstree.min.js"></script>
+<link rel="stylesheet" href="/resources/jstree/style.min.css">
+<div class="card shadow">
+    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+        <div class="col-5">
+            <h5 class="m-0 font-weight-bold text-dark">Section</h5>
         </div>
-        <div class="card-body">
-            <div class="scroll-content" style="height: 515px">
-                <div id="treeview"></div>
-            </div>
-            <button id="test_btn" onclick="nms_paneldev()"/>
+        <div class="col-7 text-right">
+<%--            <button id="openallnode" class="btn btn-sm bg-gray-400">
+                <i class="fas fa-fw fa-arrow-alt-circle-down"></i>
+            </button>
+            <button id="closeallnode" class="btn btn-sm bg-gray-400">
+                <i class="fas fa-fw fa-arrow-alt-circle-up"></i>
+            </button>--%>
         </div>
     </div>
-
+    <div class="card-body">
+        <div class="scroll-content" style="height: 515px">
+            <div id="treeview"></div>
+        </div>
+    </div>
 </div>
 
 
@@ -43,39 +40,33 @@
         getDeviceList(tree_id);
     });
 
-    function BuildTree() {
+
+    function BuildTree(){
         $('#treeview').jstree({
             'core': {
                 'data': {
                     "url": '/nms/treelist',
                     "dataType": 'json'
-                    /*                    'data': function (node) {
-                                            return {'iId': node.iId};
-                                        }*/
                 }
             }
         }).bind('ready.jstree', function (event, data) {
-            /*$("#treeview").jstree("open_all");*/
-            console.log(data);
-        });
+            data.instance.open_all();
+        })
     }
 
-
-    $(document).on('click', '#test_btn', function () {
-        let Id = 4;
-        let name = "testtext";
-        cmtData = {iid: Id, sname: name};
-        insertDevice(cmtData);
-    });
-    /* 전체열기 */
+/*    /!* 전체열기 *!/
     $('#openallnode').on('click', function () {
+        $('#treeview').bind('ready.jstree', function(data){
+            data.instance.open_all();
+        })
         console.log("openAllnode");
-        $("#treeview").jstree("open_all");
     });
-    /* 전체닫기 */
+    /!* 전체닫기 *!/
     $('#closeallnode').on('click', function () {
+        $('#treeview').bind('ready.jstree', function(data){
+            data.instance.close_all();
+        })
         console.log("closeAllnode");
-        $("#treeview").jstree("close_all");
-    });
+    });*/
 
 </script>

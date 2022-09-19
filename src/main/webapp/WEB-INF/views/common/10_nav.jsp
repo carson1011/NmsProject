@@ -1,239 +1,120 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-<body class="user-site">
-    <div id="pageWrap">
-        <!-- header -->
-        <header id="header">
-            <!-- left-menu WRAP -->
-            <div class="left-wrap">
-                <div class="header-top">
-                    <h1>
-                        <a href="/hmi/hmi">
-                            <p class="sr-only">KDN</p>
-                        </a>
-                    </h1>
-                </div>
-                <div class="header-mid">
-                    <div class="scroll-bar">
-                        <!-- gnb -->
-                        <nav id="gnb">
-                            <ul class="depth1-list">
-                                <!-- 1 -->
-                                <li class="depth1-item" id="menu00">
-                                    <a href="/hmi/hmi">
-                                        <div class="depth-icon-img">
-                                            <img src="/static/assets/img/admin/ico_dashboard.png" alt="">
-                                        </div>
-                                        <span>메인 모니터링</span>
-                                    </a>
-                                </li>
-                                <!-- 2 -->
-                                <sec:authorize access="hasAnyRole('ROLE_ADM','ROLE_DPM')">
- 								<li class="depth1-item">
-									<a href="">
-										<div class="depth-icon-img">
-									       <img src="/static/assets/img/admin/ico_computer.png" alt="">
-										</div>
-								        <span>장비 관리</span>
-                                        <em class="arr"></em>
-									</a>
-									<ul class="depth2-list">
-                                        <li class="depth2-item" id="menu0101">
-                                            <a href="/device/dvMngmt" class="link">
-                                                <div class="depth-icon-img">
-                                                    <img src="/static/assets/img/admin/ico_app4.png" alt="device" class="icon">
-                                                </div>
-                                                <span>디바이스 관리</span>
-                                            </a>
-                                        </li>
-                                        <li class="depth2-item" id="menu0102">
-                                            <a href="/device/dvVerMngmt" class="link">
-                                                <div class="depth-icon-img">
-                                                    <img src="/static/assets/img/admin/ico_computer3.png" alt="" class="icon">
-                                                </div>
-                                                <span>디바이스 버전관리</span>
-                                            </a>
-                                        </li>
-										<li class="depth2-item" id="menu0103">
-											<a href="/workspace/wsMngmt" class="link">
-												<div class="depth-icon-img">
-												    <img src="/static/assets/img/admin/ico_app2.png" alt="workspace" class="icon">
-												</div>
-												<span>작업장 관리</span>
-											</a>
-										</li>
-										<li class="depth2-item" id="menu0104">
-											<a href="/workspace/wsTimeMngmt" class="link">
-												<div class="depth-icon-img">
-												    <img src="/static/assets/img/admin/ico_app2.png" alt="worktime" class="icon">
-												</div>
-												<span>작업장 작업시간 관리</span>
-											</a>
-										</li>
-                                         <li class="depth2-item" id="menu0106">
-                                            <a href="/workspace/wsOccSet" class="link">
-                                                <div class="depth-icon-img">
-                                                    <img src="/static/assets/img/admin/ico_computer2.png" alt="" class="icon">
-                                                </div>
-                                                <span>작업장 재실인원 설정</span>
-                                            </a>
-                                        </li>
-                                        
-									</ul>
-								</li> 
-								</sec:authorize>
-								
-                                <!-- 3 -->
-                                <li class="depth1-item">
-                                    <a href="">
-                                        <div class="depth-icon-img">
-                                            <img src="/static/assets/img/admin/ico_server2.png" alt="">
-                                        </div>
-                                        <span>통계 관리</span>
-                                        <em class="arr"></em>
-                                    </a>
-                                    <ul class="depth2-list">
-                                        <li class="depth2-item" id="menu0200">
-                                            <a href="/stat/stList" class="link">
-                                                <div class="depth-icon-img">
-                                                    <img src="/static/assets/img/admin/ico_chart.png" alt="" class="icon">
-                                                </div>
-                                                <span>작업장 통계 관리</span>
-                                            </a>
-                                        </li>
-                                        <sec:authorize access="hasAnyRole('ROLE_ADMIN')">
-                                        <li class="depth2-item" id="menu0201">
-                                            <a href="/stat/stManagement" class="link">
-                                                <div class="depth-icon-img">
-                                                    <img src="/static/assets/img/admin/ico_chart2.png" alt="" class="icon">
-                                                </div>
-                                                <span>이벤트 데이터 관리</span>
-                                            </a>
-                                        </li>
-                                        <li class="depth2-item" id="menu0201">
-                                            <a href="/stat/stCommand" class="link">
-                                                <div class="depth-icon-img">
-                                                    <img src="/static/assets/img/admin/ico_chart2.png" alt="" class="icon">
-                                                </div>
-                                                <span>명령 데이터 관리</span>
-                                            </a>
-                                        </li>
-                                        </sec:authorize>
-                                    </ul>
-                                </li>
-                                <!-- 4 -->
-                                <sec:authorize access="hasAnyRole('ROLE_ADMIN')">
-                                <li class="depth1-item">
-                                    <a href="">
-                                        <div class="depth-icon-img">
-                                            <img src="/static/assets/img/admin/ico_adminmana.png" alt="">
-                                        </div>
-                                        <span>사용자 관리</span>
-                                        <em class="arr"></em>
-                                    </a>
-                                    <ul class="depth2-list">
-                                       <li class="depth2-item" id="menu0301">
-                                            <a href="/member/mbList" class="link">
-                                                <div class="depth-icon-img">
-                                                    <img src="/static/assets/img/admin/ico_server6.png" alt="" class="icon">
-                                                </div>
-                                                <span>사용자 목록</span>
-                                            </a>
-                                        </li>
-                                        <li class="depth2-item" id="menu0300">
-                                            <a href="/member/mbAdd" class="link">
-                                                <div class="depth-icon-img">
-                                                    <img src="/static/assets/img/admin/ico_usersetting.png" alt="" class="icon">
-                                                </div>
-                                                <span>사용자 추가</span>
-                                            </a>
-                                        </li>
-                                        <li class="depth2-item" id="menu0302">
-                                            <a href="/member/mbReqChk" class="link">
-                                                <div class="depth-icon-img">
-                                                    <img src="/static/assets/img/admin/ico_usersetting.png" alt="" class="icon">
-                                                </div>
-                                                <span>비밀번호 변경 요청</span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                </sec:authorize>
-                            </ul>
-                        </nav>
-                        <!-- //gnb -->
-                    </div>
-                </div>
-                <div class="header-bottom">
-                    <div class="user-btn-area">
-                        <a href="" class="user-btn">
-                            <span class="name">${s_name}&nbsp;님</span>
-                            <em class="etc"></em>
-                        </a>
-                    </div>
-                    <div class="user-popup">
-                        <div class="inner">
-                            <ul>
-                                <li>
-                                    <a href="/member/modify">
-                                        <i class="xi-user-plus-o color-secondary"></i>
-                                        <span>개인정보 수정</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="memberlogout">
-                                        <i class="xi-power-off color-danger"></i>
-                                        <span>Logout</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    
+<div class="left-bar">
+    <!-- Sidebar -->
+    <ul class="navbar-nav bg-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+        <!-- Sidebar - Brand -->
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" href>
+            <div class="sidebar-brand-icon rotate-n-15">
+                <i class="fas fa-id-badge"></i>
+            </div>
+            <div class="sidebar-brand-text mx-3">Murim G&I <sup>Safe Count</sup></div>
+        </a>
+
+        <!-- Divider -->
+        <hr class="sidebar-divider my-0">
+
+        <!-- Nav Item - Dashboard -->
+        <li class="nav-item active">
+            <a class="nav-link" href="/nms/home">
+                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <span>Dashboard</span></a>
+
+        </li>
+
+        <!-- Divider -->
+        <hr class="sidebar-divider">
+
+        <!-- Heading -->
+        <div class="sidebar-heading">
+            Interface
+        </div>
+
+        <!-- Nav Item - Pages Collapse Menu -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+               aria-expanded="true" aria-controls="collapseTwo">
+                <i class="fas fa-fw fa-cog"></i>
+                <span>Components</span>
+            </a>
+            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Custom Components:</h6>
+                    <a class="collapse-item" href="homeCopy">Buttons</a>
+                    <a class="collapse-item" href="/user">Cards</a>
                 </div>
             </div>
-            <!-- // left-menu WRAP -->
-<!--             <button type="button" id="fullScreenMode">ok</button> -->
-            <input type="hidden" id="auth" name="auth" value="${s_auth }">
-            <input type="hidden" id="empno" name="empno" value="${s_empno }">
-            <input type="hidden" id="name" name="name" value="${s_name }">
-        </header>
-        <form action="/member/logout" method="post" id="memberlogoutForm">
-		    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token }">
-		</form>
-        <script>
-	    $(function(){
-	        $(".memberlogout").on("click",function(e){
-	            e.preventDefault();
-	            $("#memberlogoutForm").submit();
-	        });
-	        
-/* 	        var docV = document.documentElement;
-	        // 전체화면 설정
-	        function openFullScreenMode() {
-	        	console.log("open");
-	            if (docV.webkitRequestFullscreen){ // Chrome, Safari (webkit)
-	                console.log("webkit");
-	                docV.webkitRequestFullscreen();
-	            }else if (docV.mozRequestFullScreen){ // Firefox
-	            	console.log("moz");
-	                docV.mozRequestFullScreen();
-	            }else if (docV.msRequestFullscreen){ // IE or Edge
-	            	console.log("IE");
-	                docV.msRequestFullscreen();
-	            }else if(docV.requestFullscreen){
-	            	console.log("else");
-	                docV.requestFullscreen();
-	            }
-	        }
-	        $( document ).ready(function() {
-		        $("#fullScreenMode").trigger("click");
-	        });
-	        $('#fullScreenMode').on('click',function(){
-	        	openFullScreenMode();
-	        }); */
-	    });
-		</script>
-        <!-- //header -->
+        </li>
+
+        <!-- Nav Item - Utilities Collapse Menu -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
+               aria-expanded="true" aria-controls="collapseUtilities">
+                <i class="fas fa-fw fa-wrench"></i>
+                <span>Utilities</span>
+            </a>
+            <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
+                 data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Setting Utilities:</h6>
+                    <a class="collapse-item" href="/device/devmngmt">Device</a>
+                    <a class="collapse-item" href="/area/areamngmt">Area</a>
+                    <%--<a class="collapse-item" href="/group/groupmngmt">Group</a>--%>
+                    <a class="collapse-item" >Other</a>
+                </div>
+            </div>
+        </li>
+
+        <!-- Divider -->
+        <hr class="sidebar-divider">
+
+        <!-- Heading -->
+        <div class="sidebar-heading">
+            Addons
+        </div>
+
+        <!-- Nav Item - Pages Collapse Menu -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
+               aria-expanded="true" aria-controls="collapsePages">
+                <i class="fas fa-fw fa-folder"></i>
+                <span>Pages</span>
+            </a>
+            <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Login Screens:</h6>
+                    <a class="collapse-item" href="login.html">Login</a>
+                    <a class="collapse-item" href="/home/test">Register</a>
+                    <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
+                    <div class="collapse-divider"></div>
+                    <h6 class="collapse-header">Other Pages:</h6>
+                    <a class="collapse-item" href="404.html">404 Page</a>
+                    <a class="collapse-item" href="blank.html">Blank Page</a>
+                </div>
+            </div>
+        </li>
+
+        <!-- Nav Item - Charts -->
+        <li class="nav-item">
+            <a class="nav-link" href="charts.html">
+                <i class="fas fa-fw fa-chart-area"></i>
+                <span>Charts</span></a>
+        </li>
+
+        <!-- Nav Item - Tables -->
+        <li class="nav-item">
+            <a class="nav-link" href="tables.html">
+                <i class="fas fa-fw fa-table"></i>
+                <span>Tables</span></a>
+        </li>
+
+        <!-- Divider -->
+        <hr class="sidebar-divider d-none d-md-block">
+
+        <!-- Sidebar Toggler (Sidebar) -->
+        <div class="text-center d-none d-md-inline">
+            <button class="rounded-circle border-0" id="sidebarToggle"></button>
+        </div>
+
+    </ul>
+    <!-- End of Sidebar -->
+</div>

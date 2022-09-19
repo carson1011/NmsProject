@@ -1,7 +1,7 @@
 package com.example.demo.controller;
 
-import com.example.demo.domain.TreeVO;
-import com.example.demo.service.WorkspaceService;
+import com.example.demo.domain.MapVO;
+import com.example.demo.service.MapService;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,7 +12,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.Console;
 import java.util.List;
 
 
@@ -22,18 +21,21 @@ import java.util.List;
 public class NmsController {
     private static Logger Log = LoggerFactory.getLogger(NmsController.class);
 
-    private final WorkspaceService workspaceService;
+    private final MapService mapService;
+
 
 
     @GetMapping(value = "/home")
-    public void home(Model model){
+    public String home(Model model){
         Log.info("home");
+        model.addAttribute("Url_location","Home");
+        return "/nms/home";
     }
 
     @GetMapping(value = "/treelist", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-    public ResponseEntity<List<TreeVO>> treelist(){
+    public ResponseEntity<List<MapVO>> treelist(){
         Log.info("treelist.do");
-        return new ResponseEntity(workspaceService.getTreeList(), HttpStatus.OK);
+        return new ResponseEntity(mapService.getTreeList(), HttpStatus.OK);
     }
 
     @PostMapping(value="/home")

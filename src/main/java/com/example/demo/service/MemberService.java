@@ -1,13 +1,17 @@
 package com.example.demo.service;
 
 import com.example.demo.domain.MemberVO;
+import com.example.demo.mapper.MemberMapper;
 import com.example.demo.repository.MemberDTO;
 import com.example.demo.repository.MemberRepository;
+import com.example.demo.repository.TestDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @Service
@@ -42,4 +46,6 @@ public class MemberService implements UserDetailsService {
                 .auth(infoDto.getAuth())
                 .password(infoDto.getPassword()).build()).getId();
     }
+
+
 }
