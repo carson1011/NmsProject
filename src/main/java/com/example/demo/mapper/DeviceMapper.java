@@ -9,6 +9,8 @@ import java.util.List;
 
 @Mapper
 public interface DeviceMapper {
+
+    List<DeviceVO> getDeviceAllList();
     List<DeviceVO> getDeviceList(int tree_id);
     List<MapVO> getMap_dvArea();
     int addDevice(DeviceVO cmtdata);

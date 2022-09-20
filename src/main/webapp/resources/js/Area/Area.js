@@ -1,9 +1,8 @@
 console.log('Area.js');
 
-function Area_TreeHead(sName,iid,children) {
-    console.log("area.js check");
+function Area_TreeHead(sName, iid) {
     let html =
-`<div class="card shadow" >
+        `<div class="card shadow" >
     <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
         <div class="col-5">
             <h6 class="m-0 font-weight-bold text-dark">Edit Area</h6>
@@ -65,7 +64,7 @@ function Area_TreeHead(sName,iid,children) {
     $('#Area_InfoPanel').append(html);
 }
 
-function Area_TreeChild(sName,iid,sDesc,children) {
+function Area_TreeChild(sName, iid, sDesc, children, hasDev) {
     let html =
         `<div class="card shadow" >
     <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
@@ -106,6 +105,30 @@ function Area_TreeChild(sName,iid,sDesc,children) {
                 style="width: 400px" value="${sDesc}">
             </div>
         </div>
+        <div class="row mt-3">
+            <div class="col-3 mt-1">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="" id="flexCheckInvolveDev">
+                    Involve installed Device 
+                </div>            
+            </div>
+            <div class="col-9">
+                <input type="text" class="form-control form-control-sm" 
+                style="width: 680px" value="${hasDev}" readonly="">
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-3">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="" id="flexCheckInvoleArea" >
+                    Involve registed Area
+                </div>            
+            </div>
+            <div class="col-9">
+                <input type="text" class="form-control form-control-sm" 
+                style="width: 680px" value="${children}" readonly="">
+            </div>
+        </div>
     </div>
 </div>
 <div class="card shadow mt-2" >
@@ -143,11 +166,11 @@ function Area_TreeChild(sName,iid,sDesc,children) {
     $('#Area_InfoPanel').append(html);
 }
 
-function refreshMemList(){
+function refreshMemList() {
     location.reload();
 }
 
-function insertMap(cmtdata){
+function insertMap(cmtdata) {
     let header = $('meta[name="_csrf_header"]').attr('content');
     let token = $('meta[name="_csrf"]').attr('content');
     $.ajax({
@@ -163,7 +186,7 @@ function insertMap(cmtdata){
     });
 }
 
-function updateMapHead(dmtdata){
+function updateMapHead(dmtdata) {
     let header = $('meta[name="_csrf_header"]').attr('content');
     let token = $('meta[name="_csrf"]').attr('content');
     $.ajax({
@@ -179,7 +202,7 @@ function updateMapHead(dmtdata){
     });
 }
 
-function deleteMap(cmtdata){
+function deleteMap(cmtdata) {
     let header = $('meta[name="_csrf_header"]').attr('content');
     let token = $('meta[name="_csrf"]').attr('content');
     $.ajax({

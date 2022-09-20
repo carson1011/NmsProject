@@ -48,6 +48,11 @@ public class DeviceController {
         Log.info("test.do");
         return new ResponseEntity(deviceService.getDev(), HttpStatus.OK);
     }
+
+    @GetMapping(value = "/deviceAlllist", produces= {MediaType.APPLICATION_JSON_UTF8_VALUE})
+    public ResponseEntity<List<MapVO>> getDeviceAllList(){
+        return new ResponseEntity(deviceService.getDeviceAllList(), HttpStatus.OK);
+    }
     @GetMapping(value = "/devicelist/{tree_id}", produces= {MediaType.APPLICATION_JSON_UTF8_VALUE})
     public ResponseEntity<List<MapVO>> treelist(@PathVariable("tree_id")int tree_id){
         return new ResponseEntity(deviceService.getDeviceList(tree_id), HttpStatus.OK);

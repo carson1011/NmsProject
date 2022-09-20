@@ -7,6 +7,7 @@ import com.example.demo.domain.Pagination;
 import java.util.List;
 
 public interface DeviceService {
+    public List<DeviceVO> getDeviceAllList();
     public List<DeviceVO> getDeviceList(int tree_id);
     public List<MapVO> getMap_dvArea();
     public int addDevice(DeviceVO cmtdata);

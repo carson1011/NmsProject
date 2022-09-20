@@ -15,8 +15,13 @@ public class DeviceServiceImpl implements DeviceService{
 
     private final DeviceMapper deviceMapper;
 
+
+    @Override
+    public List<DeviceVO> getDeviceAllList(){
+        return deviceMapper.getDeviceAllList();
+    }
     /**
-     * do.select dev
+     * do.getDeviceList dev
      * @param tree_id
      * @return
      */

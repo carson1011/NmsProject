@@ -119,7 +119,7 @@
                 <%--<h5 class="modal-title" id="EditModalLabel">Modal title</h5>--%>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button id="MaplistRemoveBtn" type="button" class="btn btn-danger">Confirm</button>
+                    <button id="MaplistDeleteBtn" type="button" class="btn btn-danger">Confirm</button>
                 </div>
             </div>
         </div>
@@ -162,8 +162,13 @@
         console.log("MaplistRemoveBtn");
         let map_iid = $('#area_root_iid').val();
         let map_sName = $('#area_root_name').val();
+        let checkbox_InvolveDev = $('#flexCheckInvolveDev').is(":checked");
+        let checkbox_InvolveArea = $('#flexCheckInvoleArea').is(":checked");
 
-
+        console.log('map_iid : ' + map_iid);
+        console.log('map_sName : ' + map_sName);
+        console.log('checkbox_InvolveDev : ' + checkbox_InvolveDev);
+        console.log('checkbox_InvolveArea : ' + checkbox_InvolveArea);
         /*console.log(map_iparent, map_sName, map_sDesc);
         if(map_sName != ''){
             cmtData = {parent: map_iparent, text: map_sName, sdesc: map_sDesc}
