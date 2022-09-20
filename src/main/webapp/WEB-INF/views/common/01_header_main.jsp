@@ -38,6 +38,7 @@
     <link rel="stylesheet" href="/resources/jstree/style.min.css">
 
     <script src="/resources/js/device/device.js"></script>
+    <script src="/resources/js/Area/Area.js"></script>
 
 
 </head>

@@ -5,6 +5,8 @@
 <script src="/resources/jstree/jstree.js"></script>
 <script src="/resources/jstree/jstree.min.js"></script>
 <link rel="stylesheet" href="/resources/jstree/style.min.css">
+
+<% String sLocation = (String)request.getAttribute("Url_location"); %>
 <div class="card shadow">
     <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
         <div class="col-5">
@@ -34,6 +36,10 @@
         let tree_id = data.instance.get_node(data.selected).id;
         let tree_text = data.instance.get_node(data.selected).text;
         let tree_parent = data.instance.get_node(data.selected).parent;
+        /*console.log("<%=sLocation%>");*/
+        if("<%=sLocation%>" == 'Area')
+            check();
+
         console.log("treeid:" + tree_id);
         console.log("treetxt:" + tree_text);
         console.log("treept:" + tree_parent);

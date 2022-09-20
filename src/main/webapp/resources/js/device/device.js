@@ -11,9 +11,6 @@ function getMaplist() {
     })
 }
 
-function getNumlist() {
-
-}
 
 function getDeviceList(tree_id) {
     $.ajax({
