@@ -10,4 +10,5 @@ public class MapVO {
     private String parent;
     private String text;
     private String icon;
+    private String sdesc;
 }

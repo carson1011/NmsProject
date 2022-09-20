@@ -31,17 +31,6 @@
                                     <div class="col ">
                                         <h5 style="font-size: 20px; color: darkblue; font-weight: bold">Device List</h5>
                                     </div>
-                                    <div class="col-2 mr-3">
-                                        <div id="dataTable_filter" class="dataTables_filter">
-                                            <label>Search:<input
-                                                    type="search" class="form-control form-control-sm" placeholder=""
-                                                    aria-controls="dataTable"></label>
-                                            <button id="DevSearch" class="btn btn-facebook" type="button">
-                                                <i class="fas fa-search fa-sm"></i>
-                                            </button>
-                                        </div>
-
-                                    </div>
                                     <div class="col-1 mr-3 text-right">
                                         <%--Repeat Button--%>
                                         <a href class="nav-link toggle " href="#" id="BarButton_Repeat" role="button">
@@ -50,22 +39,35 @@
                                             </i>
                                         </a>
                                     </div>
-                                    <div class="col-1 mr-3 text-right">
-                                        <a id="DevlistAddBtn" type="button" class="btn btn-facebook btn-icon-split"
-                                           data-toggle="modal"
-                                           data-target="#devAddModal">
-                                        <span class="icon text-white-50">
-                                            <i class="fas fa-info-circle"></i>
-                                        </span>
-                                            <span class="text">Add</span>
-                                        </a>
-                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="card-body">
+                    <div class="row mb-3 align-items-end " >
+                        <div class="col-5">
+                            <div id="dataTable_filter" class="dataTables_filter">
+                                <label>Search:<input
+                                        type="search" class="form-control form-control-sm" placeholder=""
+                                        aria-controls="dataTable"></label>
+                                <button id="DevSearch" class="btn btn-facebook" type="button">
+                                    <i class="fas fa-search fa-sm"></i>
+                                </button>
+                            </div>
+
+                        </div>
+                        <div class="col-7 text-right" >
+                            <a id="DevlistAddBtn" type="button" class="btn btn-facebook btn-icon-split"
+                               data-toggle="modal"
+                               data-target="#devAddModal">
+                                        <span class="icon text-white-50">
+                                            <i class="fas fa-info-circle"></i>
+                                        </span>
+                                <span class="text">Add</span>
+                            </a>
+                        </div>
+                    </div>
                     <div class="table-responsive" style="overflow-x: hidden">
                         <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
                             <div class="row">
@@ -171,6 +173,7 @@
         </div>
         <!-- End of Content Wrapper -->
     </div>
+        <%--Start of Content Modal--%>
     <div class="modal fade" id="devAddModal" tabindex="-1" role="dialog" aria-labelledby="devAddModalLabel"
          aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -241,6 +244,7 @@
             </div>
         </div>
     </div>
+        <%--End of Content Modal--%>
 </body>
 <!-- Bootstrap core JavaScript-->
 <script src="/resources/vendor/jquery/jquery.min.js"></script>

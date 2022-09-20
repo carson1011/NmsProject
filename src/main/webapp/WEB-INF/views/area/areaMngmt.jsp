@@ -40,16 +40,7 @@
                                             </i>
                                         </a>
                                     </div>
-                                    <div class="col-1 mr-3 text-right">
-                                        <a id="MaplistAddBtn" type="button" class="btn btn-facebook btn-icon-split"
-                                           data-toggle="modal"
-                                           data-target="#mapAddModal">
-                                        <span class="icon text-white-50">
-                                            <i class="fas fa-info-circle"></i>
-                                        </span>
-                                            <span class="text">Add</span>
-                                        </a>
-                                    </div>
+
                                 </div>
                             </div>
                         </div>
@@ -60,15 +51,81 @@
                         <div class="col-md-4 mt-2">
                             <jsp:include page="../common/20_tree.jsp"></jsp:include>
                         </div>
-                        <div class="col-md-8 mt-2">
-                            <jsp:include page="../common/22_AreaInfoPanel.jsp"></jsp:include>
+                        <div class="col-md-8 mt-2" id="Area_InfoPanel">
+                            <%--<jsp:include page="../common/22_AreaInfoPanel.jsp"></jsp:include>--%>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- End of Content Wrapper -->
     </div>
+    <!-- End of Content Wrapper -->
+    <!-- Start of Content Confirm Modal -->
+    <%--Edit--%>
+    <div class="modal fade" id="EditModal" tabindex="-1" role="dialog" aria-labelledby="EditModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                    <div class="card border-bottom-warning">
+                        <div class="card-body">
+                            <a href="#" class="btn btn-warning btn-circle btn-sm">
+                                <i class="fas fa-exclamation-triangle"></i>
+                            </a>
+                            <h4 class="mt-2 text-center">구역 정보를 수정하시겠습니까?</h4>
+                        </div>
+                    </div>
+                        <%--<h5 class="modal-title" id="EditModalLabel">Modal title</h5>--%>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button id="MaplistEditBtn" type="button" class="btn btn-warning">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <%--Add--%>
+    <div class="modal fade" id="AddModal" tabindex="-1" role="dialog" aria-labelledby="AddModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="card border-bottom-primary">
+                    <div class="card-body">
+                        <a href="#" class="btn btn-primary btn-circle btn-sm">
+                            <i class="fas fa-check"></i>
+                        </a>
+                        <h4 class="mt-2 text-center">구역을 추가합니다.</h4>
+                    </div>
+                </div>
+                <%--<h5 class="modal-title" id="EditModalLabel">Modal title</h5>--%>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button id="MaplistAddBtn" type="button" data-dismiss="modal" class="btn btn-primary">Confirm</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <%--Remove--%>
+    <div class="modal fade" id="RemoveModal" tabindex="-1" role="dialog" aria-labelledby="RemoveModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="card border-bottom-danger">
+                    <div class="card-body">
+                        <a href="#" class="btn btn-danger btn-circle btn-sm">
+                            <i class="fas fa-trash"></i>
+                        </a>
+                        <h4 class="mt-2 text-center">구역을 삭제합니다.</h4>
+                    </div>
+                </div>
+                <%--<h5 class="modal-title" id="EditModalLabel">Modal title</h5>--%>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button id="MaplistRemoveBtn" type="button" class="btn btn-danger">Confirm</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End of Content Confirm Modal -->
+</div>
 
 </body>
 <!-- Bootstrap core JavaScript-->
@@ -78,20 +135,47 @@
 <!-- Core plugin JavaScript-->
 <script src="/resources/vendor/jquery-easing/jquery.easing.min.js"></script>
 <script>
-    //At mapice Home Btn
-    $(document).on('click', '#maplistAddBtn', function () {
-        $('#RemoveDvBtn').hide();
-        $('#ModifyDvBtn').hide();
-        $('#AddDvBtn').show();
+    /*Modify Maphead Name*/
+    $(document).on('click', '#MaplistEditBtn', function () {
+        console.log("MaplistEditBtn");
+        let map_iid = $('#area_root_iid').val();
+        let map_sName = $('#area_root_name').val();
 
-        $('input[id=mapice_dvNote]').attr('value', "단말위치를 입력하세요.");
-        $('#mapice_dvMacId').attr('readonly', false);
-        $('#mapice_dvMacId').attr('readonly', false);
-        $('input[id=mapice_dvMacId]').attr('value', "단말번호를 입력하세요.");
+        cmtData = {id: map_iid, text: map_sName};
+        updateMapHead(cmtData);
     })
-    $(document).on('click', '#map_dataTable', function () {
+    /*Add Area*/
+    $(document).on('click', '#MaplistAddBtn', function () {
+        console.log("MaplistAddBtn");
+        let map_iparent = $('#area_root_iid').val();
+        let map_sName = $('#area_add_name').val();
+        let map_sDesc = $('#area_add_desc').val();
+        console.log(map_iparent, map_sName, map_sDesc);
+        if(map_sName != ''){
+            cmtData = {parent: map_iparent, text: map_sName, sdesc: map_sDesc}
+            insertMap(cmtData);
+        }else
+            alert('구역을 입력해주세요');
+    })
+    /*Remove Area*/
+    $(document).on('click', '#MaplistDeleteBtn', function () {
+        console.log("MaplistRemoveBtn");
+        let map_iid = $('#area_root_iid').val();
+        let map_sName = $('#area_root_name').val();
 
+
+        /*console.log(map_iparent, map_sName, map_sDesc);
+        if(map_sName != ''){
+            cmtData = {parent: map_iparent, text: map_sName, sdesc: map_sDesc}
+            insertMap(cmtData);
+        }else
+            alert('구역을 입력해주세요');*/
     })
+
+
+
+
+
 
     //Model Btn
     $(document).on('click', '#AddDvBtn', function () {

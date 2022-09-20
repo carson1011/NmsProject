@@ -31,18 +31,29 @@
 
 <script>
     BuildTree();
-
     $('#treeview').bind('select_node.jstree', function (event, data) {
         let tree_id = data.instance.get_node(data.selected).id;
         let tree_text = data.instance.get_node(data.selected).text;
         let tree_parent = data.instance.get_node(data.selected).parent;
+        let tree_desc = data.instance.get_node(data.selected).original.sdesc;
+        let tree_children = data.instance.get_node(data.selected).children;
         /*console.log("<%=sLocation%>");*/
-        if("<%=sLocation%>" == 'Area')
-            check();
-
+        if("<%=sLocation%>" == 'Area'){
+            if(tree_id == 1)
+                Area_TreeHead(tree_text, tree_id, tree_children);
+            else
+                Area_TreeChild(tree_text, tree_id, tree_desc, tree_children);
+        }
+        console.log(data);
         console.log("treeid:" + tree_id);
         console.log("treetxt:" + tree_text);
         console.log("treept:" + tree_parent);
+        console.log("treeds:" + tree_desc);
+        console.log("treech:" + tree_children);
+        if(tree_children == '')
+            console.log('no ch');
+        else
+            console.log('yes ch');
         getDeviceList(tree_id);
     });
 
@@ -57,7 +68,17 @@
             }
         }).bind('ready.jstree', function (event, data) {
             data.instance.open_all();
+            if("<%=sLocation%>" == 'Area'){
+                let tree_id = data.instance.get_node(1).id;
+                let tree_text = data.instance.get_node(1).text;
+                Area_TreeHead(tree_text, tree_id);
+            }
         })
+
+    }
+    function initselect(){
+
+
     }
 
 /*    /!* 전체열기 *!/

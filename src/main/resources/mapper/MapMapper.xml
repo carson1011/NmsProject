@@ -4,16 +4,29 @@
 <mapper namespace="com.example.demo.mapper.MapMapper">
 
     <select id="getTreeList" resultType="com.example.demo.domain.MapVO">
-        select iId as id, ifnull(iParent, '#')as parent, sName as text, sIcon as icon from tb_map;
+        select iId as id, ifnull(iParent, '#')as parent, sName as text, sIcon as icon ,sDesc as sdesc from tb_map;
     </select>
 
-    <select id="getMap_Table" resultType="com.example.demo.domain.MapVO">
-        select iId as id, ifnull(iParent, '#')as parent, sName as text, sIcon as icon
-        from tb_map
-        limit  #{startList}, #{listSize};
-    </select>
     <select id="getMap_Count" resultType="int">
         select Count(*) as MapCnt
         from tb_map;
     </select>
+
+    <!--최상위 tree 이름 변경-->
+    <update id="modifyMapHead" parameterType="com.example.demo.domain.MapVO">
+        update tb_map
+        set sName =#{text}
+        where iid = #{id};
+    </update>
+
+    <insert id="addMap" parameterType="com.example.demo.domain.MapVO">
+        insert into tb_map(iparent, sName,sDesc)
+        values (#{parent},#{text},#{sdesc});
+    </insert>
+
+    <delete id="removeMap" parameterType="com.example.demo.domain.MapVO">
+        delete
+        from tb_map
+        where sName = #{text};
+    </delete>
 </mapper>
