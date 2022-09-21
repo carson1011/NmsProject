@@ -27,12 +27,17 @@
                     </div>
                     <div class="col-9">
                         <jsp:include page="../common/21_CountPanel.jsp"></jsp:include>
-                        <div class="row bg-gray-200">
+                        <div class="row ">
+                            <div class="card shadow" style="width: 100%;" id="nms_devPanel">
+
+                            </div>
+                        </div>
+                        <%--<div class="row bg-gray-200">
                             <div style="margin-left: 20px; margin-top:15px;
                                     margin-bottom: 10px">
                                 <label style="font-weight: bold; font-size: 22px; margin-top: 7px;"> 인원 </label>
                             </div>
-                        </div>
+                        </div>--%>
 
                     </div>
                     <div class="col-md-12">

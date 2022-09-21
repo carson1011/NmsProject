@@ -66,7 +66,7 @@ function Area_TreeHead(sName, iid) {
 
 function Area_TreeChild(sName, iid, sDesc, ichildren,childrentxt, ihasDev,hasDevtxt) {
     let html =
-        `<div class="card shadow" >
+`<div class="card shadow" >
     <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
         <div class="col-5">
             <h6 class="m-0 font-weight-bold text-dark">Edit Area</h6>
@@ -170,9 +170,7 @@ function Area_TreeChild(sName, iid, sDesc, ichildren,childrentxt, ihasDev,hasDev
     $('#Area_InfoPanel').append(html);
 }
 
-function refreshMemList() {
-    location.reload();
-}
+
 
 function insertMap(cmtdata) {
     let header = $('meta[name="_csrf_header"]').attr('content');
@@ -186,7 +184,6 @@ function insertMap(cmtdata) {
             xhr.setRequestHeader(header, token);
         }
     }).done(function (result) {
-        refreshMemList();
     });
 }
 
@@ -202,7 +199,6 @@ function updateMapHead(dmtdata) {
             xhr.setRequestHeader(header, token);
         }
     }).done(function (result) {
-        refreshMemList();
     });
 }
 
@@ -218,7 +214,6 @@ function removeMap(cmtdata) {
             xhr.setRequestHeader(header, token);
         }
     }).done(function (result) {
-        refreshMemList();
     });
 }
 
@@ -234,7 +229,6 @@ function removeMapwithDev(cmtdate){
             xhr.setRequestHeader(header, token);
         }
     }).done(function (result) {
-        refreshMemList();
     });
 }
 
@@ -250,7 +244,6 @@ function removeMapwithUnderMap(cmtdate) {
             xhr.setRequestHeader(header, token);
         }
     }).done(function (result) {
-        refreshMemList();
     });
 }
 
@@ -267,6 +260,5 @@ function removeMapwithUnderMapDev(cmtdate) {
             xhr.setRequestHeader(header, token);
         }
     }).done(function (result) {
-        refreshMemList();
     });
 }

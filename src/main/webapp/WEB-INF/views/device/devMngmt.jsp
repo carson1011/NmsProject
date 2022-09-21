@@ -259,10 +259,10 @@
         $('#ModifyDvBtn').hide();
         $('#AddDvBtn').show();
 
-        $('input[id=device_dvNote]').attr('value',"단말위치를 입력하세요.");
+        /*$('input[id=device_dvNote]').attr('value',"단말위치를 입력하세요.");*/
         $('#device_dvMacId').attr('readonly', false);
         $('#device_dvMacId').attr('readonly', false);
-        $('input[id=device_dvMacId]').attr('value',"단말번호를 입력하세요.");
+        /*$('input[id=device_dvMacId]').attr('value',"단말번호를 입력하세요.");*/
     })
     $(document).on('click', '#Dev_dataTable', function (){
 

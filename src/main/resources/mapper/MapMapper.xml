@@ -27,7 +27,7 @@
     <delete id="removeMap" parameterType="com.example.demo.domain.MapVO">
         delete
         from tb_map
-        where sName = #{text};
+        where iid = #{id};
     </delete>
 
     <delete id="removeMapwithDev" parameterType="com.example.demo.domain.MapVO">
