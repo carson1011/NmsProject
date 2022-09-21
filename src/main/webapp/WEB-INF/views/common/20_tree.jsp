@@ -84,17 +84,17 @@
             }
         }).bind('ready.jstree', function (event, data) {
             data.instance.open_all();
-            if ("<%=sLocation%>" == 'Area') {
+            /*let tree_text = data.instance.get_node(data.selected).text;*/
+            if("<%=sLocation%>" == 'Home'){
+                homedev_mapHead();
+
+            }
+            else if ("<%=sLocation%>" == 'Area') {
                 let tree_id = data.instance.get_node(1).id;
                 let tree_text = data.instance.get_node(1).text;
                 Area_TreeHead(tree_text, tree_id);
             }
         })
-
-    }
-
-    function initselect() {
-
 
     }
 

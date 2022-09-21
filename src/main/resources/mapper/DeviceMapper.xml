@@ -46,7 +46,7 @@
     <select id="getMap_dvArea" resultType="com.example.demo.domain.MapVO">
         select iId as id, ifnull(iParent, '#')as parent, sName as text, sIcon as icon
         from tb_map
-        where iparent != '#';
+        where iparent != '#' AND iparent != '1';
     </select>
 
 

@@ -2,15 +2,15 @@
          pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<div class="row">
+<%--<div class="row">
   <div class="col-12 card shadow mt-2 mb-2 ">
     <div style="margin-left: 20px; margin-top:15px;
                                     margin-bottom: 10px">
-      <label style="font-weight: bold; font-size: 22px; margin-top: 7px;"> 인원 현황</label>
+      <label style="font-weight: bold; font-size: 22px; margin-top: 7px;"> Count Status</label>
     </div>
   </div>
-</div>
-<div class="row">
+</div>--%>
+<div class="row mt-2">
   <div class="col-xl-4 col-md-6 mb-2">
     <div class="card border-left-primary shadow h-100 py-1">
       <div class="card-body">

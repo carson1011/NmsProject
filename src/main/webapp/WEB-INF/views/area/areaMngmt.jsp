@@ -52,7 +52,7 @@
                             <jsp:include page="../common/20_tree.jsp"></jsp:include>
                         </div>
                         <div class="col-md-8 mt-2" id="Area_InfoPanel">
-                            <%--<jsp:include page="../common/22_AreaInfoPanel.jsp"></jsp:include>--%>
+                            <%--Area.js--%>
                         </div>
                     </div>
                 </div>
@@ -136,6 +136,10 @@
 <!-- Core plugin JavaScript-->
 <script src="/resources/vendor/jquery-easing/jquery.easing.min.js"></script>
 <script>
+    function refreshMemList() {
+        location.reload();
+    }
+
     /*Modify Maphead Name*/
     $(document).on('click', '#MaplistEditBtn', function () {
         console.log("MaplistEditBtn");
@@ -144,6 +148,7 @@
 
         cmtData = {id: map_iid, text: map_sName};
         updateMapHead(cmtData);
+        refreshMemList();
     })
     /*Add Area*/
     $(document).on('click', '#MaplistAddBtn', function () {
@@ -155,6 +160,7 @@
         if (map_sName != '') {
             cmtData = {parent: map_iparent, text: map_sName, sdesc: map_sDesc}
             insertMap(cmtData);
+            refreshMemList();
         } else
             alert('구역을 입력해주세요');
     })
@@ -192,7 +198,7 @@
                 else if(map_has_children_id)
                     alert('해당구역에 포함된 다른 구역이 있습니다.');
                 else {
-                    cmtData = {text: map_sName}
+                    cmtData = {id: map_iid}
                     removeMap(cmtData);
                 }
                 break;
@@ -213,103 +219,25 @@
                 }
                 break;
             case 3:
-                console.log('case3');
                 let aRemoveAreaDev = map_has_children_id.split(",");
                 aRemoveAreaDev.push(map_iid);
                 console.log(aRemoveAreaDev);
                 aRemoveAreaDev.forEach(function (element,index,array){
                     console.log('element : ' + element);
                     cmtData = {id: element}
-                    removeMapwithUnderMapDev(cmtData);
+                    if(map_has_dev_id.includes(element))
+                    {
+                        console.log('case3 include ' + element);
+                        removeMapwithUnderMapDev(cmtData);
+
+                    }
+                    else{
+                        console.log('case3 not include ' + element);
+                        removeMap(cmtData);
+                    }
                 })
-                /*cmtData = {id: aRemoveAreaDev}
-                removeMapwithUnderMapDev(cmtData);*/
                 break;
         }
-
-        /*if()*/
-        /*console.log(map_iparent, map_sName, map_sDesc);
-        if(map_sName != ''){
-            cmtData = {parent: map_iparent, text: map_sName, sdesc: map_sDesc}
-            deleteMap(cmtData);
-        }else
-            alert('구역을 입력해주세요');*/
+        refreshMemList();
     })
-
-
-    //Model Btn
-    $(document).on('click', '#AddDvBtn', function () {
-        let dv_Note = $('#mapice_dvNote').val();
-        let dv_Mac = $('#mapice_dvMacId').val();
-        let dv_iid = $('#mapice_dvArea').val();
-        //dv_AreaNum = 장비 한정 6대 였는데 지금은 그럴 필요가 없어서 뺌
-        let dv_AreaNum = $('#mapice_dvAreaNum').val();
-        cmtData = {mac: dv_Mac, module_note: dv_Note, iid: dv_iid, isid: dv_AreaNum};
-        insertmapice(cmtData);
-    });
-    $(document).on('click', '#ModifyDvBtn', function () {
-        console.log("modifyDv");
-        let dv_Note = $('#mapice_dvNote').val();
-        let dv_Mac = $('#mapice_dvMacId').val();
-        let dv_iid = $('#mapice_dvArea').val();
-        cmtData = {mac: dv_Mac, module_note: dv_Note, iid: dv_iid};
-        updatemapice(cmtData);
-    })
-    $(document).on('click', '#RemoveDvBtn', function () {
-        console.log("removeDv");
-        let dv_Note = $('#mapice_dvNote').val();
-        let dv_Mac = $('#mapice_dvMacId').val();
-        let dv_iid = $('#mapice_dvArea').val();
-        cmtData = {mac: dv_Mac, module_note: dv_Note, iid: dv_iid};
-        deletemapice(cmtData);
-    })
-
-
-    //Datatable click event
-    $("#map_dataTable tr").click(function () {
-
-        $('#AddDvBtn').hide();
-        $('#RemoveDvBtn').show();
-        $('#ModifyDvBtn').show();
-        var str = ""
-
-        // 현재 클릭된 Row(<tr>)
-        var tr = $(this);
-        var td = tr.children();
-
-        /*// tr.text()는 클릭된 Row 즉 tr에 있는 모든 값을 가져온다.
-        console.log("클릭한 Row의 모든 데이터 : "+tr.text());
-
-        // 반복문을 이용해서 배열에 값을 담아 사용할 수 도 있다.
-        td.each(function(i){
-            tdArr.push(td.eq(i).text());
-        });
-
-        console.log("배열에 담긴 값 : "+tdArr);*/
-
-        // td.eq(index)를 통해 값을 가져올 수도 있다.
-        var Location = td.eq(0).text();
-        var map_Location = td.eq(1).text();
-        var map_ID = td.eq(2).text();
-        var mapice_dvIp = td.eq(3).text();
-        $('input[id=mapice_dvNote]').attr('value', map_Location);
-        $('#mapice_dvMacId').attr('readonly', true);
-        $('input[id=mapice_dvMacId]').attr('value', map_ID);
-
-        let sel = document.getElementById("mapice_dvArea");
-        for (let i = 0; i < sel.length; i++) {
-            if (sel[i].text == Location) {
-                sel[i].selected = true;
-                console.log("location " + Location);
-                console.log("sel[i] " + sel[i]);
-            }
-        }
-        $('input[id=mapice_dvIp]').attr('value', mapice_dvIp);
-
-        str += " * 클릭된 Row의 td값 =" + "Location : " + Location +
-            ", map_Location : " + map_Location +
-            ", map_ID : " + map_ID;
-        console.log(str);
-
-    });
 </script>
