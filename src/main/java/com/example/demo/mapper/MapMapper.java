@@ -12,4 +12,10 @@ public interface MapMapper {
     int addMap(MapVO cmtdata);
     int modifyMapHead(MapVO cmtdata);
     int removeMap(MapVO cmtdata);
+
+    int removeMapwithDev(MapVO cmtdata);
+
+    int removeMapwithUnderMap(MapVO cmtdata);
+
+    int removeMapwithUnderMapDev(MapVO cmtdata);
 }

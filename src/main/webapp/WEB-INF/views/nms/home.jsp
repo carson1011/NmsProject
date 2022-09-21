@@ -22,15 +22,15 @@
                 <div class="row">
                     <% String sLocation = (String)request.getAttribute("Url_location"); %>
                     <%--<% out.print(sLocation);%>--%>
-                    <div class="col-md-3 mt-2">
+                    <div class="col mt-2">
                         <jsp:include page="../common/20_tree.jsp"></jsp:include>
                     </div>
-                    <div class="col-md-9">
+                    <div class="col-9">
                         <jsp:include page="../common/21_CountPanel.jsp"></jsp:include>
                         <div class="row bg-gray-200">
                             <div style="margin-left: 20px; margin-top:15px;
                                     margin-bottom: 10px">
-                                <label style="font-weight: bold; font-size: 22px; margin-top: 7px;"> 인원 현황</label>
+                                <label style="font-weight: bold; font-size: 22px; margin-top: 7px;"> 인원 </label>
                             </div>
                         </div>
 

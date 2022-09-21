@@ -9,7 +9,7 @@
 <% String sLocation = (String) request.getAttribute("Url_location"); %>
 <div class="card shadow">
     <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-        <div class="col-5">
+        <div class="col">
             <h5 class="m-0 font-weight-bold text-dark">Section</h5>
         </div>
         <div class="col-7 text-right">
@@ -39,31 +39,28 @@
         let tree_desc = data.instance.get_node(data.selected).original.sdesc;
         let tree_children = data.instance.get_node(data.selected).children;
 
-        let tree_children_txt = [];
-        let stree_children_hasDev = [];
-        let itree_children_hasDev = [];
-
-        if(hasDev.includes(tree_id))
-            stree_children_hasDev.push(' ' + tree_text);
-        for (let i = 0; i < tree_children.length; i++) {
-            tree_children_txt[i] = ' ' + data.instance.get_node(tree_children[i]).text;
-            if (hasDev.includes(tree_children[i])) {
-                stree_children_hasDev.push(' ' + data.instance.get_node(tree_children[i]).text);
-                itree_children_hasDev.push(tree_children[i]);
-            }
-        }
-
-
-        /*console.log("
-
-        <%=sLocation%>");*/
         if ("<%=sLocation%>" == 'Area') {
+            let tree_children_txt = [];
+            let stree_children_hasDev = [];
+            let itree_children_hasDev = [];
+
+            if (hasDev.includes(tree_id)) {
+                stree_children_hasDev.push(tree_text);
+                itree_children_hasDev.push(tree_id);
+            }
+
+            for (let i = 0; i < tree_children.length; i++) {
+                tree_children_txt[i] = ' ' + data.instance.get_node(tree_children[i]).text;
+                if (hasDev.includes(tree_children[i])) {
+                    stree_children_hasDev.push(data.instance.get_node(tree_children[i]).text);
+                    itree_children_hasDev.push(tree_children[i]);
+                }
+            }
             if (tree_id == 1)
                 Area_TreeHead(tree_text, tree_id);
             else {
-                Area_TreeChild(tree_text, tree_id, tree_desc, tree_children_txt, stree_children_hasDev);
+                Area_TreeChild(tree_text, tree_id, tree_desc, tree_children, tree_children_txt, itree_children_hasDev, stree_children_hasDev);
             }
-
         }
         console.log(data);
         /*console.log("treeid:" + tree_id);

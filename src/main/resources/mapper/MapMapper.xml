@@ -29,4 +29,26 @@
         from tb_map
         where sName = #{text};
     </delete>
+
+    <delete id="removeMapwithDev" parameterType="com.example.demo.domain.MapVO">
+        delete tree, dev
+        from tb_map As tree
+        inner join tb_apc_dev as dev
+        on tree.iid = dev.iid
+        where tree.iid = #{id};
+    </delete>
+
+    <delete id="removeMapwithUnderMap" parameterType="com.example.demo.domain.MapVO">
+        delete
+        from tb_map
+        where sName = #{text} OR iParent = #{parent};
+    </delete>
+
+    <delete id="removeMapwithUnderMapDev" parameterType="com.example.demo.domain.MapVO">
+        delete tree, dev
+        from tb_map As tree
+        inner join tb_apc_dev as dev
+        on tree.iid = dev.iid
+        where tree.iid = #{id};
+    </delete>
 </mapper>

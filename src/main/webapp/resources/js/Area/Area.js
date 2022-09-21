@@ -64,7 +64,7 @@ function Area_TreeHead(sName, iid) {
     $('#Area_InfoPanel').append(html);
 }
 
-function Area_TreeChild(sName, iid, sDesc, children, hasDev) {
+function Area_TreeChild(sName, iid, sDesc, ichildren,childrentxt, ihasDev,hasDevtxt) {
     let html =
         `<div class="card shadow" >
     <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
@@ -114,7 +114,9 @@ function Area_TreeChild(sName, iid, sDesc, children, hasDev) {
             </div>
             <div class="col-9">
                 <input type="text" class="form-control form-control-sm" 
-                style="width: 680px" value="${hasDev}" readonly="">
+                style="width: 100%" value="${hasDevtxt}" readonly="">
+                <input type="hidden" id="area_has_dev_id" class="form-control form-control-sm" 
+                style="width: auto" value="${ihasDev}" >
             </div>
         </div>
         <div class="row mt-3">
@@ -126,7 +128,9 @@ function Area_TreeChild(sName, iid, sDesc, children, hasDev) {
             </div>
             <div class="col-9">
                 <input type="text" class="form-control form-control-sm" 
-                style="width: 680px" value="${children}" readonly="">
+                style="width: 100%" value="${childrentxt}" readonly="">
+                <input type="hidden" id="area_children_id" class="form-control form-control-sm" 
+                style="width: auto" value="${ichildren}" >
             </div>
         </div>
     </div>
@@ -202,12 +206,61 @@ function updateMapHead(dmtdata) {
     });
 }
 
-function deleteMap(cmtdata) {
+function removeMap(cmtdata) {
     let header = $('meta[name="_csrf_header"]').attr('content');
     let token = $('meta[name="_csrf"]').attr('content');
     $.ajax({
         type: 'POST',
         url: '/area/removemap',
+        data: JSON.stringify(cmtData),
+        contentType: 'application/json;charset=utf-8',
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader(header, token);
+        }
+    }).done(function (result) {
+        refreshMemList();
+    });
+}
+
+function removeMapwithDev(cmtdate){
+    let header = $('meta[name="_csrf_header"]').attr('content');
+    let token = $('meta[name="_csrf"]').attr('content');
+    $.ajax({
+        type: 'POST',
+        url: '/area/removemapwithdev',
+        data: JSON.stringify(cmtData),
+        contentType: 'application/json;charset=utf-8',
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader(header, token);
+        }
+    }).done(function (result) {
+        refreshMemList();
+    });
+}
+
+function removeMapwithUnderMap(cmtdate) {
+    let header = $('meta[name="_csrf_header"]').attr('content');
+    let token = $('meta[name="_csrf"]').attr('content');
+    $.ajax({
+        type: 'POST',
+        url: '/area/removemapwithundermap',
+        data: JSON.stringify(cmtData),
+        contentType: 'application/json;charset=utf-8',
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader(header, token);
+        }
+    }).done(function (result) {
+        refreshMemList();
+    });
+}
+
+function removeMapwithUnderMapDev(cmtdate) {
+    console.log('removeMapwithUnderMapDev');
+    let header = $('meta[name="_csrf_header"]').attr('content');
+    let token = $('meta[name="_csrf"]').attr('content');
+    $.ajax({
+        type: 'POST',
+        url: '/area/removemapwithundermapdev',
         data: JSON.stringify(cmtData),
         contentType: 'application/json;charset=utf-8',
         beforeSend: function (xhr) {

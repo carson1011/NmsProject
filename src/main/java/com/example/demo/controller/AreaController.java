@@ -43,11 +43,46 @@ public class AreaController {
                 :new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
+    /*
+    * 단일 Area만 삭제 No dev
+    * */
     @PostMapping(value="/removemap",consumes="application/json",produces="application/text;charset=utf-8")
     public ResponseEntity<String> removeMap(@RequestBody MapVO cmtdata){
         Log.info("removemap.do");
         int isOkDV = areaService.removeMap(cmtdata);
         return isOkDV == 1? new ResponseEntity<>("정상변경 되었습니다.", HttpStatus.OK)
+                :new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+    /*
+    * 단일 Area와 등록되어 있는 Dev 모두 삭제
+    * */
+    @PostMapping(value="/removemapwithdev",consumes="application/json",produces="application/text;charset=utf-8")
+    public ResponseEntity<String> removeMapwithDev(@RequestBody MapVO cmtdata){
+        Log.info("removemapwithdev.do");
+        int isOkDV = areaService.removeMapwithDev(cmtdata);
+        Log.info("isOkDV : " + isOkDV);
+        return isOkDV == 2? new ResponseEntity<>("정상변경 되었습니다.", HttpStatus.OK)
+                :new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    /*
+     * 단일 Area와 등록되어 있는 Dev 모두 삭제
+     * */
+    @PostMapping(value="/removemapwithundermap",consumes="application/json",produces="application/text;charset=utf-8")
+    public ResponseEntity<String> removeMapwithUnderMap(@RequestBody MapVO cmtdata){
+        Log.info("removemapwithundermap.do");
+        int isOkDV = areaService.removeMapwithUnderMap(cmtdata);
+        Log.info("isOkDV : " + isOkDV);
+        return isOkDV > 1? new ResponseEntity<>("정상변경 되었습니다.", HttpStatus.OK)
+                :new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @PostMapping(value="/removemapwithundermapdev",consumes="application/json",produces="application/text;charset=utf-8")
+    public ResponseEntity<String> removeMapwithUnderMapDev(@RequestBody MapVO cmtdata){
+        Log.info("removemapwithundermap.do");
+        int isOkDV = areaService.removeMapwithUnderMapDev(cmtdata);
+        Log.info("isOkDV : " + isOkDV);
+        return isOkDV > 1? new ResponseEntity<>("정상변경 되었습니다.", HttpStatus.OK)
                 :new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }

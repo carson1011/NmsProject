@@ -66,15 +66,15 @@
          aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                    <div class="card border-bottom-warning">
-                        <div class="card-body">
-                            <a href="#" class="btn btn-warning btn-circle btn-sm">
-                                <i class="fas fa-exclamation-triangle"></i>
-                            </a>
-                            <h4 class="mt-2 text-center">구역 정보를 수정하시겠습니까?</h4>
-                        </div>
+                <div class="card border-bottom-warning">
+                    <div class="card-body">
+                        <a href="#" class="btn btn-warning btn-circle btn-sm">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </a>
+                        <h4 class="mt-2 text-center">구역 정보를 수정하시겠습니까?</h4>
                     </div>
-                        <%--<h5 class="modal-title" id="EditModalLabel">Modal title</h5>--%>
+                </div>
+                <%--<h5 class="modal-title" id="EditModalLabel">Modal title</h5>--%>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     <button id="MaplistEditBtn" type="button" class="btn btn-warning">Save changes</button>
@@ -98,7 +98,8 @@
                 <%--<h5 class="modal-title" id="EditModalLabel">Modal title</h5>--%>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button id="MaplistAddBtn" type="button" data-dismiss="modal" class="btn btn-primary">Confirm</button>
+                    <button id="MaplistAddBtn" type="button" data-dismiss="modal" class="btn btn-primary">Confirm
+                    </button>
                 </div>
             </div>
         </div>
@@ -151,10 +152,10 @@
         let map_sName = $('#area_add_name').val();
         let map_sDesc = $('#area_add_desc').val();
         console.log(map_iparent, map_sName, map_sDesc);
-        if(map_sName != ''){
+        if (map_sName != '') {
             cmtData = {parent: map_iparent, text: map_sName, sdesc: map_sDesc}
             insertMap(cmtData);
-        }else
+        } else
             alert('구역을 입력해주세요');
     })
     /*Remove Area*/
@@ -164,22 +165,76 @@
         let map_sName = $('#area_root_name').val();
         let checkbox_InvolveDev = $('#flexCheckInvolveDev').is(":checked");
         let checkbox_InvolveArea = $('#flexCheckInvoleArea').is(":checked");
+        let map_has_dev_id = $('#area_has_dev_id').val();
+        let map_has_children_id = $('#area_children_id').val();
+        let option_case = 0;
 
         console.log('map_iid : ' + map_iid);
         console.log('map_sName : ' + map_sName);
         console.log('checkbox_InvolveDev : ' + checkbox_InvolveDev);
         console.log('checkbox_InvolveArea : ' + checkbox_InvolveArea);
+        console.log('map_has_dev_id : ' + map_has_dev_id);
+        console.log('map_has_children_id : ' + map_has_children_id);
+
+        if (checkbox_InvolveDev == false && checkbox_InvolveArea == false)
+            option_case = 0;
+        else if (checkbox_InvolveDev == true && checkbox_InvolveArea == false)
+            option_case = 1;
+        else if (checkbox_InvolveDev == false && checkbox_InvolveArea == true)
+            option_case = 2;
+        else if (checkbox_InvolveDev == true && checkbox_InvolveArea == true)
+            option_case = 3;
+        console.log('option_case : ' + option_case);
+        switch (option_case) {
+            case 0: //단일 Area만 삭제 No dev
+                if (hasDev.includes(map_iid))
+                    alert('해당구역에 장비가 등록되어 있습니다.');
+                else if(map_has_children_id)
+                    alert('해당구역에 포함된 다른 구역이 있습니다.');
+                else {
+                    cmtData = {text: map_sName}
+                    removeMap(cmtData);
+                }
+                break;
+            case 1: //단일 Area와 등록되어 있는 Dev 모두 삭제
+                if (map_has_children_id)
+                    alert('해당구역에 포함된 다른 구역이 있습니다.');
+                else{
+                    cmtData = {id: map_iid, text: map_sName}
+                    removeMapwithDev(cmtData);
+                }
+                break;
+            case 2: //해당 Area와 하위 Area 삭제 No dev
+                if (map_has_dev_id)
+                    alert('해당구역 및 하위 구역에 장비가 등록되어 있습니다.');
+                else{
+                    cmtData = {text: map_sName, parent: map_iid}
+                    removeMapwithUnderMap(cmtData);
+                }
+                break;
+            case 3:
+                console.log('case3');
+                let aRemoveAreaDev = map_has_children_id.split(",");
+                aRemoveAreaDev.push(map_iid);
+                console.log(aRemoveAreaDev);
+                aRemoveAreaDev.forEach(function (element,index,array){
+                    console.log('element : ' + element);
+                    cmtData = {id: element}
+                    removeMapwithUnderMapDev(cmtData);
+                })
+                /*cmtData = {id: aRemoveAreaDev}
+                removeMapwithUnderMapDev(cmtData);*/
+                break;
+        }
+
+        /*if()*/
         /*console.log(map_iparent, map_sName, map_sDesc);
         if(map_sName != ''){
             cmtData = {parent: map_iparent, text: map_sName, sdesc: map_sDesc}
-            insertMap(cmtData);
+            deleteMap(cmtData);
         }else
             alert('구역을 입력해주세요');*/
     })
-
-
-
-
 
 
     //Model Btn

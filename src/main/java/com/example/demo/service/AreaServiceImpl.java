@@ -22,4 +22,18 @@ public class AreaServiceImpl implements AreaService{
     public int removeMap(MapVO cmtdata){
         return mapMapper.removeMap(cmtdata);
     }
+
+    public int removeMapwithDev(MapVO cmtdata){
+        return mapMapper.removeMapwithDev(cmtdata);
+    }
+
+    @Override
+    public int removeMapwithUnderMap(MapVO cmtdata) {
+        return mapMapper.removeMapwithUnderMap(cmtdata);
+    }
+
+    @Override
+    public int removeMapwithUnderMapDev(MapVO cmtdata) {
+        return mapMapper.removeMapwithUnderMapDev(cmtdata);
+    }
 }
