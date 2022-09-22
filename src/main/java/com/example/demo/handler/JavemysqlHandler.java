@@ -1,11 +1,12 @@
 package com.example.demo.handler;
 
+import com.example.demo.domain.CntAreaVO;
 import com.example.demo.domain.DevHisVO;
+import com.example.demo.domain.DeviceVO;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class JavemysqlHandler {
 
@@ -44,21 +45,51 @@ public class JavemysqlHandler {
     }
 
 
+    public List<CntAreaVO> getinstalled_imapid() throws SQLException{
+        List<CntAreaVO> cntAreaVOArrayList = new ArrayList<>();
 
-    /*public void upsert_CntArea() throws SQLException{
+        Connection conn = getConnection();
+        try {
+            String sql = "select imapid,sum(incnt) as incnt, sum(outcnt) as outcnt, (sum(incnt) - sum(outcnt)) as occucnt from tb_apc_his group by imapid;";
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                CntAreaVO cntAreaVO = new CntAreaVO();
+                cntAreaVO.setImapid(rs.getInt("imapid"));
+                cntAreaVO.setIncnt(rs.getInt("incnt"));
+                cntAreaVO.setOutcnt(rs.getInt("outcnt"));
+                cntAreaVO.setOccucnt(rs.getInt("occucnt"));
+                cntAreaVOArrayList.add(cntAreaVO);
+            }
+            pstmt.close();
+            conn.close();
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        finally {
+
+        }
+        return cntAreaVOArrayList;
+    }
+
+    public void upsert_CntArea(CntAreaVO cmtdata) throws SQLException{
         int resultCnt = 0;
         Connection conn = getConnection();
         try {
             String sql = "insert into tb_cnt_area(imapid, incnt, outcnt, occucnt, iparentid) " +
-                    "values (" +
-                    "(select imapid, sum),?,?,?," +
+                    "values (?,?,?,?," +
                     "(select iparent from tb_map where iid = ?))" +
                     "ON Duplicate KEY UPDATE incnt = ?, outcnt = ?, occucnt = ?;";
-            *//*PreparedStatement pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1,cmtdata.getMac());
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1,cmtdata.getImapid());
             pstmt.setInt(2,cmtdata.getIncnt());
             pstmt.setInt(3,cmtdata.getOutcnt());
-            pstmt.setString(4,cmtdata.getStempture_r());*//*
+            pstmt.setInt(4,cmtdata.getOccucnt());
+            pstmt.setInt(5,cmtdata.getImapid());
+            pstmt.setInt(6,cmtdata.getIncnt());
+            pstmt.setInt(7,cmtdata.getOutcnt());
+            pstmt.setInt(8,cmtdata.getOccucnt());
             resultCnt = pstmt.executeUpdate();
             pstmt.close();
             conn.close();
@@ -68,5 +99,5 @@ public class JavemysqlHandler {
         finally {
             System.out.println("insert_rcvDate : "+resultCnt);
         }
-    }*/
+    }
 }
