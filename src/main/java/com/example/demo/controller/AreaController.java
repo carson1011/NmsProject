@@ -20,9 +20,7 @@ public class AreaController {
     private final AreaService areaService;
 
     @GetMapping(value = "/areamngmt")
-    public String dev(Model model
-            , @RequestParam(required = false, defaultValue = "1") int page
-            , @RequestParam(required = false, defaultValue = "1") int range) {
+    public String dev(Model model) {
         Log.info("areaMgmnt.do");
         model.addAttribute("Url_location", "Area");
         return "/area/areaMngmt";

@@ -1,5 +1,12 @@
 console.log('nms_homedev.js')
-function homedev_mapHead(){
+
+function homedev_mapHead(streeHead_children) {
+    let html_homedev_mapHead_Area = "";
+    streeHead_children.forEach(function (element) {
+        html_homedev_mapHead_Area += `<div class="mt-2">
+                                          <input type="text" class="form-control form-control-sm" value="${element}" readonly="">
+                                      </div>`
+    })
     let html =
         `
     <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
@@ -11,7 +18,9 @@ function homedev_mapHead(){
         <div class="row">
             <div class="col-3">
                 <label class="font-weight-bold text-dark ml-2">Area</label>
-                <div id="homedev_mapHead_Area"></div>
+                <div id="homedev_mapHead_Area">
+                    ${html_homedev_mapHead_Area}
+                </div>
             </div>
             <div class="col-3">
                 <label class="font-weight-bold text-dark ml-2">In</label>
@@ -28,6 +37,7 @@ function homedev_mapHead(){
         </div>
     </div>
         `
+
 
     $('#nms_devPanel').empty();
     $('#nms_devPanel').append(html);
