@@ -70,8 +70,7 @@
         console.log("tree_children:" + tree_children);
         console.log("itree_children_hasDev:" + itree_children_hasDev);*/
 
-        if(tree_parent != '#' && tree_parent != 1)
-            getDeviceList(tree_id);
+        getDeviceList(tree_id);
     });
 
 
@@ -85,25 +84,17 @@
             }
         }).bind('ready.jstree', function (event, data) {
             data.instance.open_all();
-            /*start home instance*/
-            let itreeHead_children = data.instance.get_node(1).children;
-            let streeHead_children = [];
-            itreeHead_children.forEach(function (element){
-                streeHead_children.push(data.instance.get_node(element).text);
-            })
-            console.log(streeHead_children);
-            if("<%=sLocation%>" == 'Home'){
-                homedev_mapHead(streeHead_children);
-            }
-            /*end home instance*/
-            /*start Area instance*/
             if ("<%=sLocation%>" == 'Area') {
                 let tree_id = data.instance.get_node(1).id;
                 let tree_text = data.instance.get_node(1).text;
                 Area_TreeHead(tree_text, tree_id);
             }
-            /*end Area instace*/
         })
+
+    }
+
+    function initselect() {
+
 
     }
 
