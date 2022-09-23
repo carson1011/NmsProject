@@ -1,8 +1,10 @@
 package com.example.demo.config;
 
+import com.ctc.wstx.util.StringUtil;
 import com.example.demo.controller.DeviceController;
 import com.example.demo.domain.DevHisVO;
 import com.example.demo.handler.JavemysqlHandler;
+import com.sun.xml.internal.ws.util.StringUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
@@ -44,6 +46,7 @@ public class UdpServer implements ApplicationListener<ContextRefreshedEvent> {
                 // 데이터 보낸곳 확인
                 // 보낸 데이터를 Utf-8에 문자열로 변환
                 String dev_IpAddress = dp.getAddress().toString();
+                dev_IpAddress = dev_IpAddress.replace("/","");
                 String msg = new String(dp.getData(), "UTF-8");
                 String[] tmp_array = msg.split(";");
                 String[] array_data = tmp_array[0].split(",");
@@ -74,8 +77,10 @@ public class UdpServer implements ApplicationListener<ContextRefreshedEvent> {
                 }
                 /*insert 가능 조건 설정*/
                 if(javemysqlHandler.preinsert_getdev(devHisVO.getMac()) &&
-                        (devHisVO.getIncnt() != 0 || devHisVO.getOutcnt() != 0))
+                        (devHisVO.getIncnt() != 0 || devHisVO.getOutcnt() != 0)){
                     javemysqlHandler.insert_rcvData(devHisVO);
+                    javemysqlHandler.update_devip(dev_IpAddress,devHisVO.getMac());
+                }
                 else
                     ;
             }

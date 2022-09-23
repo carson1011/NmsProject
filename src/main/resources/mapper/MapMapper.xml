@@ -25,8 +25,10 @@
     </insert>
 
     <delete id="removeMap" parameterType="com.example.demo.domain.MapVO">
-        delete
-        from tb_map
+        delete tm, tca
+        from tb_map tm
+            inner join tb_cnt_area tca
+            on tm.iid = tca.imapid
         where iid = #{id};
     </delete>
 

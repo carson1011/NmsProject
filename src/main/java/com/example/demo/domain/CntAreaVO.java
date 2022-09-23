@@ -7,6 +7,7 @@ import lombok.Setter;
 @Setter
 public class CntAreaVO {
     private int imapid;
+    private String smapname;
     private int incnt;
     private int outcnt;
     private int occucnt;

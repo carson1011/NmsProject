@@ -43,6 +43,25 @@ public class JavemysqlHandler {
             /*System.out.println("insert_rcvDate : "+resultCnt);*/
         }
     }
+
+    public void update_devip(String sip, String mac) throws SQLException{
+
+        Connection conn = getConnection();
+        try {
+            String sql = "update tb_apc_dev set sIP=? where mac = ?;";
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, sip);
+            pstmt.setString(2, mac);
+            pstmt.executeUpdate();
+
+            pstmt.close();
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+        }
+    }
+
     public boolean preinsert_getdev(String mac) throws SQLException{
         System.out.println("preinsert_getdev.do");
         boolean bexist = false;
@@ -76,15 +95,20 @@ public class JavemysqlHandler {
             /*select imapid,sum(incnt) as incnt, sum(outcnt) as outcnt, (sum(incnt) - sum(outcnt)) as occucnt from tb_apc_his
                 where DATE_FORMAT(stDateTime,'%y-%m-%d %H') > date_format(now(),'%y-%m-%d 01')
                 group by imapid*/
-            String sql = "select imapid, sum(incnt) as incnt, sum(outcnt) as outcnt, (sum(incnt) - sum(outcnt)) as occucnt from tb_apc_his " +
-                    "where DATE_FORMAT(stDateTime,'%y-%m-%d')=date_format(now(),'%y-%m-%d') " +
-                    "group by imapid ;";
+            String sql = "select tah.imapid, sum(tah.incnt) as incnt, sum(tah.outcnt) as outcnt, " +
+                    "(sum(tah.incnt) - sum(tah.outcnt)) as occucnt, tm.sName as smapname " +
+                    "from tb_apc_his tah " +
+                    "inner join tb_map tm " +
+                    "on tah.imapid = tm.iid " +
+                    "where DATE_FORMAT(tah.stDateTime,'%y-%m-%d')=date_format(now(),'%y-%m-%d') " +
+                    "group by tah.imapid;";
             PreparedStatement pstmt = conn.prepareStatement(sql);
             ResultSet rs = pstmt.executeQuery();
 
             while (rs.next()) {
                 CntAreaVO cntAreaVO = new CntAreaVO();
                 cntAreaVO.setImapid(rs.getInt("imapid"));
+                cntAreaVO.setSmapname(rs.getString("smapname"));
                 cntAreaVO.setIncnt(rs.getInt("incnt"));
                 cntAreaVO.setOutcnt(rs.getInt("outcnt"));
                 cntAreaVO.setOccucnt(rs.getInt("occucnt"));
@@ -105,19 +129,20 @@ public class JavemysqlHandler {
         int resultCnt = 0;
         Connection conn = getConnection();
         try {
-            String sql = "insert into tb_cnt_area(imapid, incnt, outcnt, occucnt, iparentid) " +
-                    "values (?,?,?,?," +
+            String sql = "insert into tb_cnt_area(imapid, smapname, incnt, outcnt, occucnt, iparentid) " +
+                    "values (?,?,?,?,?," +
                     "(select iparent from tb_map where iid = ?))" +
                     "ON Duplicate KEY UPDATE incnt = ?, outcnt = ?, occucnt = ?;";
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1,cmtdata.getImapid());
-            pstmt.setInt(2,cmtdata.getIncnt());
-            pstmt.setInt(3,cmtdata.getOutcnt());
-            pstmt.setInt(4,cmtdata.getOccucnt());
-            pstmt.setInt(5,cmtdata.getImapid());
-            pstmt.setInt(6,cmtdata.getIncnt());
-            pstmt.setInt(7,cmtdata.getOutcnt());
-            pstmt.setInt(8,cmtdata.getOccucnt());
+            pstmt.setString(2,cmtdata.getSmapname());
+            pstmt.setInt(3,cmtdata.getIncnt());
+            pstmt.setInt(4,cmtdata.getOutcnt());
+            pstmt.setInt(5,cmtdata.getOccucnt());
+            pstmt.setInt(6,cmtdata.getImapid());
+            pstmt.setInt(7,cmtdata.getIncnt());
+            pstmt.setInt(8,cmtdata.getOutcnt());
+            pstmt.setInt(9,cmtdata.getOccucnt());
             resultCnt = pstmt.executeUpdate();
             pstmt.close();
             conn.close();
