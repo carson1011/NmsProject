@@ -20,11 +20,6 @@
         from tb_apc_dev;
     </select>
 
-    <select id="getDev" resultType="com.example.demo.domain.DeviceVO">
-        select t1.mac,t1.module_note, t1.sIP, t2.sName
-        from tb_apc_dev t1, tb_map t2
-        where t1.iid = t2.iid;
-    </select>
     <!--select t1.mac, t2.apcgroup, t1.stempture, concat(t1.measure_date,' ',t1.measure_time) as timedate, t1.Img from apc_table t1, group_table t2 " +
     "where t1.measure_date between '{0}' and '{1}' " +
     "and t1.stempture > '{2}' and t1.stempture < '{3}' " +

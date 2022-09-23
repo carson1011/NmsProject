@@ -14,8 +14,6 @@ public interface DeviceService {
     public List<DeviceVO> getDev_Table(Pagination pagination);
     public int getDev_Count();
 
-    public List<DeviceVO> getDev();
-
     public int modifyDevice(DeviceVO cmtdata);
 
     public int removeDevice(DeviceVO cmtdata);

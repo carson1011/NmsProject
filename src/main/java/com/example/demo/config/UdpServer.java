@@ -1,5 +1,6 @@
 package com.example.demo.config;
 
+import com.example.demo.controller.DeviceController;
 import com.example.demo.domain.DevHisVO;
 import com.example.demo.handler.JavemysqlHandler;
 import lombok.RequiredArgsConstructor;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -26,6 +28,7 @@ public class UdpServer implements ApplicationListener<ContextRefreshedEvent> {
 
 
         try {
+
             // 상대방이 연결할수 있도록 UDP 소켓 생성
             DatagramSocket dsoc = new DatagramSocket(13834);
             // 전송받은 데이터를 지정할 바이트 배열선언
@@ -68,10 +71,13 @@ public class UdpServer implements ApplicationListener<ContextRefreshedEvent> {
                         devHisVO.setStempture_r(eq_array[1]);
                        /* System.out.println("eT : "+eT);*/
                     }
-
                 }
-                 System.out.println("udpServer");
-                javemysqlHandler.insert_rcvData(devHisVO);
+                /*insert 가능 조건 설정*/
+                if(javemysqlHandler.preinsert_getdev(devHisVO.getMac()) &&
+                        (devHisVO.getIncnt() != 0 || devHisVO.getOutcnt() != 0))
+                    javemysqlHandler.insert_rcvData(devHisVO);
+                else
+                    ;
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());

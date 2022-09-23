@@ -31,10 +31,12 @@
     </delete>
 
     <delete id="removeMapwithDev" parameterType="com.example.demo.domain.MapVO">
-        delete tree, dev
+        delete tree, dev, area
         from tb_map As tree
         inner join tb_apc_dev as dev
-        on tree.iid = dev.iid
+            on tree.iid = dev.iid
+        inner join tb_cnt_area as area
+            on dev.iid = area.imapid
         where tree.iid = #{id};
     </delete>
 
@@ -45,10 +47,12 @@
     </delete>
 
     <delete id="removeMapwithUnderMapDev" parameterType="com.example.demo.domain.MapVO">
-        delete tree, dev
+        delete tree, dev, area
         from tb_map As tree
         inner join tb_apc_dev as dev
-        on tree.iid = dev.iid
+            on tree.iid = dev.iid
+        inner join tb_cnt_area as area
+            on dev.iid = area.imapid
         where tree.iid = #{id};
     </delete>
 </mapper>

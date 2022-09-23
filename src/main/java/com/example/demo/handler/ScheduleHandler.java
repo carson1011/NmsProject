@@ -5,21 +5,24 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 @Component
 public class ScheduleHandler {
     JavemysqlHandler javemysqlHandler = new JavemysqlHandler();
-    @Scheduled(fixedRate = 10000)
+    String dtNow;
+    @Scheduled(fixedRate = 1000)
     public void scheduleFixedRateTask() {
-        System.out.println(
-                "Fixed rate task - " + System.currentTimeMillis() / 1000);
+        LocalDate dt = LocalDate.now();
+        dtNow = dt.toString();
+        /*System.out.println(dtNow);*/
     }
-    @Scheduled(fixedRate = 3000)
+    @Scheduled(fixedRate = 10000)
     public void SetCntArea_Task() throws SQLException {
         List<CntAreaVO> cntAreaVOList = new ArrayList<>();
-        cntAreaVOList = javemysqlHandler.getinstalled_imapid();
+        cntAreaVOList = javemysqlHandler.getinstalled_imapid(dtNow);
         for (CntAreaVO element: cntAreaVOList) {
             javemysqlHandler.upsert_CntArea(element);
         }

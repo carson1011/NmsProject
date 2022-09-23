@@ -7,6 +7,7 @@ import com.example.demo.domain.DeviceVO;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.ConsoleHandler;
 
 public class JavemysqlHandler {
 
@@ -19,7 +20,6 @@ public class JavemysqlHandler {
 
         return conn;
     }
-
     public void insert_rcvData(DevHisVO cmtdata) throws SQLException {
         int resultCnt = 0;
         Connection conn = getConnection();
@@ -43,14 +43,42 @@ public class JavemysqlHandler {
             /*System.out.println("insert_rcvDate : "+resultCnt);*/
         }
     }
+    public boolean preinsert_getdev(String mac) throws SQLException{
+        System.out.println("preinsert_getdev.do");
+        boolean bexist = false;
+        Connection conn = getConnection();
+        try {
+            String sql = "select exists (select mac from tb_apc_dev where mac = ?) as b;;";
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1,mac);
+            ResultSet rs = pstmt.executeQuery();
 
+            if (rs.next()) {
+                bexist = (rs.getInt("b") != 0);
+            }
+            pstmt.close();
+            conn.close();
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        finally {
 
-    public List<CntAreaVO> getinstalled_imapid() throws SQLException{
+        }
+        return bexist;
+    }
+
+    public List<CntAreaVO> getinstalled_imapid(String stDate) throws SQLException{
         List<CntAreaVO> cntAreaVOArrayList = new ArrayList<>();
 
         Connection conn = getConnection();
         try {
-            String sql = "select imapid,sum(incnt) as incnt, sum(outcnt) as outcnt, (sum(incnt) - sum(outcnt)) as occucnt from tb_apc_his group by imapid;";
+            /*시간 비교해서 검색*/
+            /*select imapid,sum(incnt) as incnt, sum(outcnt) as outcnt, (sum(incnt) - sum(outcnt)) as occucnt from tb_apc_his
+                where DATE_FORMAT(stDateTime,'%y-%m-%d %H') > date_format(now(),'%y-%m-%d 01')
+                group by imapid*/
+            String sql = "select imapid, sum(incnt) as incnt, sum(outcnt) as outcnt, (sum(incnt) - sum(outcnt)) as occucnt from tb_apc_his " +
+                    "where DATE_FORMAT(stDateTime,'%y-%m-%d')=date_format(now(),'%y-%m-%d') " +
+                    "group by imapid ;";
             PreparedStatement pstmt = conn.prepareStatement(sql);
             ResultSet rs = pstmt.executeQuery();
 

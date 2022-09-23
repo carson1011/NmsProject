@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.domain.MapVO;
+import com.example.demo.handler.JavemysqlHandler;
 import com.example.demo.service.MapService;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.SQLException;
 import java.util.List;
 
 
@@ -20,17 +22,16 @@ import java.util.List;
 @RequiredArgsConstructor
 public class NmsController {
     private static Logger Log = LoggerFactory.getLogger(NmsController.class);
-
     private final MapService mapService;
     @GetMapping(value = "/home")
-    public String home(Model model){
+    public String home(Model model) throws SQLException{
         Log.info("home");
         model.addAttribute("Url_location","Home");
         return "/nms/home";
     }
 
     @GetMapping(value = "/treelist", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-    public ResponseEntity<List<MapVO>> treelist(){
+    public ResponseEntity<List<MapVO>> treelist()  {
         Log.info("treelist.do");
         return new ResponseEntity(mapService.getTreeList(), HttpStatus.OK);
     }

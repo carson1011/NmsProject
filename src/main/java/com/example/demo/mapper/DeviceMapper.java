@@ -19,6 +19,5 @@ public interface DeviceMapper {
 
     List<DeviceVO> getDev_Table(Pagination pagination);
     int getDev_Count();
-    List<DeviceVO> getDev();
 
 }

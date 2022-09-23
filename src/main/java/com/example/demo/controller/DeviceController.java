@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import com.example.demo.domain.DeviceVO;
 import com.example.demo.domain.MapVO;
 import com.example.demo.domain.Pagination;
+import com.example.demo.handler.JavemysqlHandler;
 import com.example.demo.service.DeviceService;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -14,6 +15,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -23,6 +26,7 @@ public class DeviceController {
     private static Logger Log = LoggerFactory.getLogger(NmsController.class);
     private final DeviceService deviceService;
     private Pagination pagination;
+
 
     @GetMapping(value = "/devmngmt")
     public String dev(Model model
@@ -43,14 +47,8 @@ public class DeviceController {
         return "/device/devMngmt";
     }
 
-    @GetMapping(value = "/test", produces= {MediaType.APPLICATION_JSON_UTF8_VALUE})
-    public ResponseEntity<List<DeviceVO>> test(){
-        Log.info("test.do");
-        return new ResponseEntity(deviceService.getDev(), HttpStatus.OK);
-    }
-
     @GetMapping(value = "/deviceAlllist", produces= {MediaType.APPLICATION_JSON_UTF8_VALUE})
-    public ResponseEntity<List<MapVO>> getDeviceAllList(){
+    public ResponseEntity<List<MapVO>> getDeviceAllList()  {
         return new ResponseEntity(deviceService.getDeviceAllList(), HttpStatus.OK);
     }
     @GetMapping(value = "/devicelist/{tree_id}", produces= {MediaType.APPLICATION_JSON_UTF8_VALUE})

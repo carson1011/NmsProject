@@ -38,11 +38,6 @@ public class DeviceServiceImpl implements DeviceService{
         return deviceMapper.getDev_Count();
     }
 
-    public List<DeviceVO> getDev(){
-        return deviceMapper.getDev();
-    }
-
-
 
     /**
      * do.insert dev
